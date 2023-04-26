@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc39c9622f2eae74088a7e194a55745d, type: 3}
+  m_Name: God Card Pack
+  m_EditorClassIdentifier: 
+  _image: {fileID: 21300000, guid: 30bdd32f12b9a4aa2a30001178f0679c, type: 3}
+  _price: 20
+  _count: 10
+  _purchaseText: x10
+  _name: God
+  _allStandardCards:
+  - {fileID: 11400000, guid: d65e9ca9fd8eb9d4b82e60612a6036c1, type: 2}
+  - {fileID: 11400000, guid: 7ef27faacbedd2042bcc158242792825, type: 2}
+  - {fileID: 11400000, guid: 14acd97431951fe4eabf519484e284aa, type: 2}
+  - {fileID: 11400000, guid: b3203eab37bbb6d4eba48359cb78543b, type: 2}
+  - {fileID: 11400000, guid: 3f27dab3fbcf42744a919ec0f3334f0e, type: 2}
+  _allRarityCards:
+  - {fileID: 11400000, guid: d65e9ca9fd8eb9d4b82e60612a6036c1, type: 2}
+  - {fileID: 11400000, guid: 7ef27faacbedd2042bcc158242792825, type: 2}
+  - {fileID: 11400000, guid: 14acd97431951fe4eabf519484e284aa, type: 2}
+  - {fileID: 11400000, guid: b3203eab37bbb6d4eba48359cb78543b, type: 2}
+  - {fileID: 11400000, guid: 3f27dab3fbcf42744a919ec0f3334f0e, type: 2}
+  _dropChance: 0
+  _command: Open Chest
