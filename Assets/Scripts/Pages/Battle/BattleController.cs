@@ -15,32 +15,23 @@ namespace FarmPage.Battle
     {
         private static readonly int Effect = Animator.StringToHash("Effect");
 
-        [SerializeField]
-        private BattleAnimator _battleAnimator;
+        [SerializeField] private BattleAnimator _battleAnimator;
 
-        [SerializeField] 
-        private BattleIntro _roundIntro;
+        [SerializeField] private BattleIntro _roundIntro;
 
-        [SerializeField]
-        private CardAnimator[] _enemyCardAnimators;
+        [SerializeField] private CardAnimator[] _enemyCardAnimators;
 
-        [SerializeField]
-        private CardAnimator[] _playerCardAnimators;
+        [SerializeField] private CardAnimator[] _playerCardAnimators;
 
-        [SerializeField] 
-        private Shaking shaking;
+        [SerializeField] private Shaking shaking;
 
-        [SerializeField] 
-        private Animator _turnEffect;
+        [SerializeField] private Animator _turnEffect;
 
-        [SerializeField] 
-        private GameObject _battleChouse;
+        [SerializeField] private GameObject _battleChouse;
 
-        [SerializeField] 
-        private Window _winWindow;
+        [SerializeField] private Window _winWindow;
         
-        [SerializeField]
-        private Window _loseWindow;
+        [SerializeField] private Window _loseWindow;
 
         [SerializeField] private PrizeWindow _prizeWindow;
 
@@ -49,9 +40,7 @@ namespace FarmPage.Battle
         private EnemyBattle _enemy;
         private Card[] _enemyCards;
 
-        [HideInInspector] public RandomPrize[] _randomPrizes;
-
-        public void StartFight(EnemyBattle enemy)
+        public void StartFightWith(EnemyBattle enemy)
         {
             _enemy = enemy;
 

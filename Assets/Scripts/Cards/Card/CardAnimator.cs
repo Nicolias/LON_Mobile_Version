@@ -9,51 +9,36 @@ namespace Cards.Card
 {
     public class CardAnimator : MonoBehaviour
     {
-        private static readonly int _smoke = Animator.StringToHash("Smoke");
-
-        [SerializeField] 
-        private Image _image;
+        [SerializeField] private Image _image;
 
         [SerializeField] private Image _deadImage;
 
-        [SerializeField] 
-        private Sprite _sideBackSprite;
+        [SerializeField] private Sprite _sideBackSprite;
 
-        [SerializeField] 
-        private Image _lightImage;
+        [SerializeField] private Image _lightImage;
 
-        [SerializeField] 
-        private Image _hitImage;
+        [SerializeField] private Image _hitImage;
 
-        [SerializeField] 
-        private Image _stateImage;
+        [SerializeField] private Image _stateImage;
 
-        [SerializeField] 
-        private Image _shadow;
+        [SerializeField] private Image _shadow;
 
-        [SerializeField] 
-        private Image _selectImage;
+        [SerializeField] private Image _selectImage;
         
         [SerializeField] private Image _magicCircleImage;
         [SerializeField] private ParticleSystem _fallAnimation;
 
-        [SerializeField]
-        private ParticleSystem _flyEffect;
+        [SerializeField] private ParticleSystem _flyEffect;
         
-        [SerializeField]
-        private Animator _smokeEffect;
+        [SerializeField] private Animator _smokeEffect;
 
-        [SerializeField]
-        private Transform _effectContainer;
+        [SerializeField] private Transform _effectContainer;
 
-        [SerializeField] 
-        private TextMeshProUGUI[] _damageTexts;
+        [SerializeField] private TextMeshProUGUI[] _damageTexts;
 
-        [SerializeField] 
-        private Sprite[] _frames;
+        [SerializeField] private Sprite[] _frames;
 
-        [SerializeField] 
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
 
         [SerializeField] private CardStatsPanel _cardStatsPanel;
         [SerializeField] private GameObject _frame;

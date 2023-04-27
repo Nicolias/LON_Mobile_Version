@@ -16,11 +16,11 @@ public class HotKeySelector : MonoBehaviour
         }
     }
 
-    private void SelectButton(HotKey selectButton)
+    private void SelectButton(HotKey selectHotKey)
     {
         foreach (var hotKey in _hotKeys)
             hotKey.Unselect();
 
-        selectButton.Select();
+        selectHotKey.Select();
     }
 }

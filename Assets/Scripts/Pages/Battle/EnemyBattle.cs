@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using FarmPage.Battle;
 using TMPro;
@@ -32,12 +31,12 @@ public class EnemyBattle : MonoBehaviour
     private void Awake()
     {
         _button = GetComponent<Button>();
+        PrintCardsPowerValue();
     }
 
     private void OnEnable()
     {
         _button.onClick.AddListener(SelectEnemy);
-        ShowPowerValue();
         _selectionFrame.SetActive(false);
     }
 
@@ -46,20 +45,7 @@ public class EnemyBattle : MonoBehaviour
         _button.onClick.RemoveAllListeners();
     }
 
-    private void SelectEnemy()
-    {
-        UnSelectOtherEnemy();
-        _selectionFrame.SetActive(true);
-        _battleConfirmWindow.SelectEnemyCards(this);
-    }
-
-    private void UnSelectOtherEnemy()
-    {
-        foreach (var enemy in _otherEenemies)
-            enemy.SelectionFrame.SetActive(false);
-    }
-
-    private void ShowPowerValue()
+    private void PrintCardsPowerValue()
     {
         int amountPower = 0;
 
@@ -69,5 +55,18 @@ public class EnemyBattle : MonoBehaviour
         }
 
         _powerValue.text = amountPower.ToString();
+    }
+
+    private void SelectEnemy()
+    {
+        UnSelectOtherEnemy();
+        _selectionFrame.SetActive(true);
+        _battleConfirmWindow.SelectEnemy(this);
+    }
+
+    private void UnSelectOtherEnemy()
+    {
+        foreach (var enemy in _otherEenemies)
+            enemy.SelectionFrame.SetActive(false);
     }
 }

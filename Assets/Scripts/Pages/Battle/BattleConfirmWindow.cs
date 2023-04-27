@@ -40,7 +40,7 @@ namespace FarmPage.Battle
             _startBattaleButton.onClick.RemoveAllListeners();
         }
 
-        public void SelectEnemyCards(EnemyBattle enemy)
+        public void SelectEnemy(EnemyBattle enemy)
         {
             _enemy = enemy;
             _startBattaleButton.interactable = true;
@@ -53,26 +53,15 @@ namespace FarmPage.Battle
                 _exeptionServise.PrintException("Not enough energy");
                 return;
             }
-
-            bool hasCardInDeck = _attackDeck.IsDeckEmpty == false;
-
-            //foreach (var playerCard in _attackDeck.CardsInDeck)
-            //{
-            //    if (playerCard.IsSet)
-            //    {
-            //        hasCardInDeck = playerCard.IsSet;
-            //        break;
-            //    }
-            //}
             
-            if (hasCardInDeck == false)
+            if (_attackDeck.IsDeckEmpty == false)
             {
                 _exeptionServise.PrintException("You don't have any heroes in your deck");
                 return;
             }
                 
-            _energy.DecreaseEnergy(5);
-            _battle.StartFight(_enemy);
+            _energy.DecreaseEnergy(_battleEnergyPrice);
+            _battle.StartFightWith(_enemy);
         }
     }
 }

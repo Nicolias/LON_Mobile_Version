@@ -1,8 +1,5 @@
-using Data;
-using Infrastructure.Services;
 using System;
 using UnityEngine;
-using Zenject;
 
 public class HideAndSeekPages : MonoBehaviour
 {
