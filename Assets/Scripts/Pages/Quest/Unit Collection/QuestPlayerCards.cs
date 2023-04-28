@@ -13,19 +13,11 @@ public class QuestPlayerCards : QuestCollection
 
     protected override Unit[] GetArrayType()
     {
-        int cardsCount = 0;
-
-        foreach (var card in _attackDeck.CardsInDeck)
-        {
-            if (card.IsSet)
-                cardsCount++;
-        }
-
-        return new FarmPage.Quest.Card[cardsCount];
+        return new FarmPage.Quest.Card[_attackDeck.CardCellsInDeck.Count];
     }
 
     protected override void InitUnit(Unit unit, int position)
     {
-        (unit as FarmPage.Quest.Card).Init(_attackDeck.CardsInDeck[position], _playerStatisticQuest, _blickImage);
+        (unit as FarmPage.Quest.Card).Init(_attackDeck.CardCellsInDeck[position], _playerStatisticQuest, _blickImage);
     }
 }

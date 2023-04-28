@@ -3,42 +3,20 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Sequence = DG.Tweening.Sequence;
 
 namespace Cards.Card
 {
     public class CardAnimator : MonoBehaviour
     {
-        [SerializeField] private Image _image;
+        [SerializeField] private Image _cardAvatar, _deadImage, _selectImage, _magicCircleImage;
 
-        [SerializeField] private Image _deadImage;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private AnimationClip _fallAnimatino;
 
-        [SerializeField] private Sprite _sideBackSprite;
-
-        [SerializeField] private Image _lightImage;
-
-        [SerializeField] private Image _hitImage;
-
-        [SerializeField] private Image _stateImage;
-
-        [SerializeField] private Image _shadow;
-
-        [SerializeField] private Image _selectImage;
-        
-        [SerializeField] private Image _magicCircleImage;
-        [SerializeField] private ParticleSystem _fallAnimation;
-
-        [SerializeField] private ParticleSystem _flyEffect;
-        
-        [SerializeField] private Animator _smokeEffect;
-
+        [SerializeField] private ParticleSystem _burstParticleWhenCircleFalt;
         [SerializeField] private Transform _effectContainer;
 
         [SerializeField] private TextMeshProUGUI[] _damageTexts;
-
-        [SerializeField] private Sprite[] _frames;
-
-        [SerializeField] private Animator _animator;
 
         [SerializeField] private CardStatsPanel _cardStatsPanel;
         [SerializeField] private GameObject _frame;
@@ -53,9 +31,7 @@ namespace Cards.Card
 
         private void Start()
         {
-            _shadow.gameObject.SetActive(false);
             transform.localPosition = transform.localPosition.ToY(100);
-            Hide();
         }
 
         private void OnEnable()
@@ -63,6 +39,7 @@ namespace Cards.Card
             _animator.enabled = true;
             HealthLeft = _cardStatsPanel.Health;
             _deadImage.DOColor(new Color(0,0,0,0), 0);
+            Hide();
         }
 
         private void OnDisable()
@@ -70,41 +47,29 @@ namespace Cards.Card
             _animator.enabled = false;
         }
 
-        public void Init(global::Card card)
+        public void Initialize(global::Card card)
         {
             Card = card;
 
-            _image.sprite = card.UIIcon;
-            _shadow.sprite = _image.sprite;
+            _cardAvatar.sprite = card.UIIcon;
             _cardStatsPanel.Init(card.Attack.ToString(), card.Def, card.Health, card.SkillIcon);
-            _frame.gameObject.SetActive(false);
-            _cardStatsPanel.gameObject.SetActive(false);
         }
 
-        public IEnumerator StartIntro(Sequence sequence, float y)
+        public IEnumerator StartIntro()
         {
             _magicCircleImage.gameObject.SetActive(true);
 
-            gameObject.SetActive(true);
-            _image.gameObject.SetActive(false);
-            _shadow.sprite = _image.sprite;
-            _image.color = Color.clear;
-
             _animator.SetTrigger("Intro");
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(_fallAnimatino.length);
 
             _magicCircleImage.gameObject.SetActive(false);
 
-            _fallAnimation.Play();
+            _burstParticleWhenCircleFalt.Play();
+            yield return new WaitForSeconds(_burstParticleWhenCircleFalt.main.duration);
 
-            yield return new WaitForSeconds(0.5f);
-
-            _frame.gameObject.SetActive(true);
+            _frame.SetActive(true);
             _cardStatsPanel.gameObject.SetActive(true);
-            _image.gameObject.SetActive(true);
-
-            yield return new WaitForSeconds(1f);
-            _smokeEffect.GetComponent<Image>().enabled = false;
+            _cardAvatar.gameObject.SetActive(true);
             
             _localPosition = transform.localPosition;
             _scale = transform.localScale;
@@ -143,6 +108,14 @@ namespace Cards.Card
                 _deadImage.DOColor(new Color(0,0,0, 0.5f), 1);
         }
 
+        private void Hide()
+        {
+            _magicCircleImage.color = Color.white;
+            _cardAvatar.gameObject.SetActive(false);
+            _frame.gameObject.SetActive(false);
+            _cardStatsPanel.gameObject.SetActive(false);
+        }
+
         private IEnumerator Shake()
         {
             var startLocalPosition = transform.localPosition;
@@ -178,12 +151,6 @@ namespace Cards.Card
                 .Insert(0, transform.DOScale(_scale, 0.2f));
         }
 
-        public void Hide()
-        {
-            _image.color = Color.clear;
-            _magicCircleImage.color = Color.white;
-            _frame.gameObject.SetActive(false);
-            _cardStatsPanel.gameObject.SetActive(false);
-        }
+        
     }
 }

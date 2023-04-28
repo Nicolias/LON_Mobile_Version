@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace FarmPage.Battle
 {
-    public class BattleController : MonoBehaviour
+    public class BattleController : Battel
     {
         private static readonly int Effect = Animator.StringToHash("Effect");
 
@@ -40,7 +40,7 @@ namespace FarmPage.Battle
         private EnemyBattle _enemy;
         private Card[] _enemyCards;
 
-        public void StartFightWith(EnemyBattle enemy)
+        public override void StartFightWith(EnemyBattle enemy)
         {
             _enemy = enemy;
 
@@ -48,13 +48,7 @@ namespace FarmPage.Battle
             
             gameObject.SetActive(true);
 
-            foreach (var playerCard in _playerCardAnimators)
-                playerCard.Hide();
-
-            foreach (var enemyCard in _enemyCardAnimators) 
-                enemyCard.Hide();
-
-            HideNonActiveCards(_attackDeck.CardsInDeck, _playerCardAnimators);
+            RenderPlayerCards(_attackDeck.CardCellsInDeck, _playerCardAnimators);
 
             StartCoroutine(Fight());
         }
@@ -65,14 +59,14 @@ namespace FarmPage.Battle
             
             for (int i = 0; i < _enemy.Cards.Count; i++)
             {
-                _enemyCardAnimators[i].Init(_enemyCards[i]);
+                _enemyCardAnimators[i].Initialize(_enemyCards[i]);
             }
         }
 
         private IEnumerator Fight()
         {
-            yield return _battleAnimator.AppearanceCards(_enemyCardAnimators, _playerCardAnimators, 
-                GetAliveCards(GetCardArrayFrom(_attackDeck.CardsInDeck)), GetAliveCards(_enemyCards));
+            yield return _battleAnimator.AppearanceCards(_enemyCardAnimators, _playerCardAnimators,
+                GetAliveCards(GetCardArrayFrom(_attackDeck.CardCellsInDeck)), GetAliveCards(_enemyCards));
 
             int roundCounter = 0;
             while (GetAmountCardsHealth(_enemyCardAnimators) > 0 && GetAmountCardsHealth(_playerCardAnimators) > 0)
@@ -82,7 +76,7 @@ namespace FarmPage.Battle
                 yield return new WaitForSeconds(0.5f);
                 yield return roundCounter % 2 != 0 ? PlayerTurn() : EnemyTurn();
             }
-            
+
             if (GetAmountCardsHealth(_playerCardAnimators) >= GetAmountCardsHealth(_enemyCardAnimators))
                 yield return PlayerWin();
             else
@@ -91,25 +85,25 @@ namespace FarmPage.Battle
 
         private IEnumerator PlayerTurn()
         {
-            var playerAliveCardNumbers = GetAliveCards(GetCardArrayFrom(_attackDeck.CardsInDeck));
+            var playerAliveCardNumbers = GetAliveCards(GetCardArrayFrom(_attackDeck.CardCellsInDeck));
             var enemyAliveCardNumbers = GetAliveCards(_enemyCards);
 
             yield return Turn(playerAliveCardNumbers, enemyAliveCardNumbers,
                 _playerCardAnimators.ToList(), _enemyCardAnimators.ToList(),
-                GetCardArrayFrom(_attackDeck.CardsInDeck).ToList(), _enemyCards.ToList());
+                GetCardArrayFrom(_attackDeck.CardCellsInDeck).ToList(), _enemyCards.ToList());
         }
 
         private IEnumerator EnemyTurn()
         {
-            var playerAliveCardNumbers = GetAliveCards(GetCardArrayFrom(_attackDeck.CardsInDeck));
+            var playerAliveCardNumbers = GetAliveCards(GetCardArrayFrom(_attackDeck.CardCellsInDeck));
             var enemyAliveCardNumbers = GetAliveCards(_enemyCards);
 
-            yield return Turn(enemyAliveCardNumbers, playerAliveCardNumbers, 
+            yield return Turn(enemyAliveCardNumbers, playerAliveCardNumbers,
                 _enemyCardAnimators.ToList(), _playerCardAnimators.ToList(),
-                _enemyCards.ToList(), GetCardArrayFrom(_attackDeck.CardsInDeck).ToList());
+                _enemyCards.ToList(), GetCardArrayFrom(_attackDeck.CardCellsInDeck).ToList());
         }
 
-        private IEnumerator Turn(List<int> myAliveCardNumbers, List<int> opponentAliveCardNumbers, 
+            private IEnumerator Turn(List<int> myAliveCardNumbers, List<int> opponentAliveCardNumbers, 
             List<CardAnimator> myCardAnimators, List<CardAnimator> opponentCardAnimators, List<Card> myCards, List<Card> opponentCards)
         {
             var randomMyCardDamageCount = _enemyCardAnimators.Length < 2 ? 1 : 2;
@@ -245,14 +239,11 @@ namespace FarmPage.Battle
             return aliveCards;
         }
     
-        private void HideNonActiveCards(List<CardCellInDeck> cards, CardAnimator[] cardAnimators)
+        private void RenderPlayerCards(List<CardCellInDeck> cardCells, CardAnimator[] cardAnimators)
         {
-            for (int i = 0; i < cards.Count; i++)
+            for (int i = 0; i < cardCells.Count; i++)
             {
-                if (cards[i].IsSet)
-                    cardAnimators[i].Init(cards[i].Card);
-                else
-                    cardAnimators[i].Hide();
+                cardAnimators[i].Initialize(cardCells[i].Card);
             }
         }
 

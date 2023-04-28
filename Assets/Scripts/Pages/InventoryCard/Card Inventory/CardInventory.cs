@@ -20,7 +20,7 @@ public class CardInventory : CardCollectionSort<InventoryCardCell>
         }
 
         Render(_cardCollection.Cards);
-        Render(_attackDeck.CardsInDeck);
+        Render(_attackDeck.CardCellsInDeck);
     }
 
     private void Render<K>(List<K> cardCells) where K : CardCell

@@ -31,7 +31,7 @@ namespace FarmPage.Quest
 
         private bool CheckForDeckEmpty()
         {
-            foreach (var card in _attackDeck.CardsInDeck)
+            foreach (var card in _attackDeck.CardCellsInDeck)
             {
                 if (card.IsSet)
                     return true;

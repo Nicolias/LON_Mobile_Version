@@ -6,7 +6,7 @@ namespace FarmPage.Battle
 {
     public class BattleConfirmWindow : MonoBehaviour
     {
-        [SerializeField] private BattleController _battle;
+        [SerializeField] private Battel _battle;
 
         [SerializeField] private AttackDeck _attackDeck;
         [SerializeField] private Energy _energy;
@@ -54,7 +54,7 @@ namespace FarmPage.Battle
                 return;
             }
             
-            if (_attackDeck.IsDeckEmpty == false)
+            if (_attackDeck.IsDeckEmpty)
             {
                 _exeptionServise.PrintException("You don't have any heroes in your deck");
                 return;

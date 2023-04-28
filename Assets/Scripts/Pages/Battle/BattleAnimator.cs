@@ -38,7 +38,7 @@ namespace Battle
             _battleIntro.gameObject.SetActive(false);
 
             foreach (var card in cards) 
-                StartCoroutine(cardAnimators[card].StartIntro(sequence, y));
+                StartCoroutine(cardAnimators[card].StartIntro());
 
             yield return new WaitForSeconds(3f);
         }
