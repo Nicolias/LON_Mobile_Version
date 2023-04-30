@@ -25494,6 +25494,7 @@ MonoBehaviour:
   _magicCircleImage: {fileID: 3390295731185330231}
   _animator: {fileID: 922095209666069239}
   _fallAnimatino: {fileID: 7400000, guid: 2617bccf64980bf468e06907fb3dde69, type: 2}
+  _fallSpeed: 7
   _burstParticleWhenCircleFalt: {fileID: 2591138484952063318}
   _effectContainer: {fileID: 468538775999385478}
   _damageTexts:

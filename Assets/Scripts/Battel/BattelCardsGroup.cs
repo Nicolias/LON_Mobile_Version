@@ -12,42 +12,33 @@ class BattelCardsGroup : MonoBehaviour
     private List<Card> _dataCardsInGroup;
     private List<CardAnimator> _cardsInGroup = new();
 
-    public void Initialize(List<CardCellInDeck> currentDeckCards)
+    public IEnumerator Initialize(List<CardCellInDeck> currentDeckCards)
     {
         List<Card> cardsInDeck = new();
 
         foreach (var cardCell in currentDeckCards)
             cardsInDeck.Add(cardCell.Card);
 
-        Initialize(cardsInDeck);
+        yield return Initialize(cardsInDeck);
     }
 
-    public void Initialize(List<Card> currentDeckCards)
+    public IEnumerator Initialize(List<Card> currentDeckCards)
     {
         _dataCardsInGroup = currentDeckCards;
-        _cardsInGroup = CreateBattleCard();
+        yield return CreateBattleCard();
     }
 
-    public IEnumerator PlayFallAnimation()
-    {
-        foreach (var card in _cardsInGroup)
-        {
-            yield return card.StartIntro();
-        }
-    }
-
-    private List<CardAnimator> CreateBattleCard()
+    private IEnumerator CreateBattleCard()
     {
         List<CardAnimator> newBattelCards = new();
 
         foreach (Card cardInGroup in _dataCardsInGroup)
         {
             var newBattelCard = Instantiate(_battelCardTemplate, _container);
-            newBattelCard.Initialize(cardInGroup);
-
-            newBattelCards.Add(newBattelCard);
+            yield return newBattelCard.Initialize(cardInGroup);
+            newBattelCards.Add(newBattelCard);            
         }
 
-        return newBattelCards;
+        _cardsInGroup = newBattelCards;
     }
 }

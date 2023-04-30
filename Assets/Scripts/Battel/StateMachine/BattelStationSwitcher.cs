@@ -21,13 +21,11 @@ public class BattelStationSwitcher : Battel
 
     public override void StartFightWith(EnemyBattle enemy)
     {
-        _playerCardsGroup.Initialize(_playerAttackDeck.CardCellsInDeck);
-        _enemyCardsGroup.Initialize(enemy.Cards);
-
         gameObject.SetActive(true);
 
-        StartCoroutine(_playerCardsGroup.PlayFallAnimation());
-        StartCoroutine(_enemyCardsGroup.PlayFallAnimation());
+        StartCoroutine(_playerCardsGroup.Initialize(_playerAttackDeck.CardCellsInDeck));
+        StartCoroutine(_enemyCardsGroup.Initialize(enemy.Cards));
+
 
         //foreach (var playerCard in _playerCardAnimators)
         //    playerCard.Hide();

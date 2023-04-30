@@ -12,6 +12,7 @@ namespace Cards.Card
 
         [SerializeField] private Animator _animator;
         [SerializeField] private AnimationClip _fallAnimatino;
+        [SerializeField] private float _fallSpeed;
 
         [SerializeField] private ParticleSystem _burstParticleWhenCircleFalt;
         [SerializeField] private Transform _effectContainer;
@@ -32,6 +33,7 @@ namespace Cards.Card
         private void Start()
         {
             transform.localPosition = transform.localPosition.ToY(100);
+            _animator.SetFloat("Fall Speed", _fallSpeed);
         }
 
         private void OnEnable()
@@ -47,20 +49,22 @@ namespace Cards.Card
             _animator.enabled = false;
         }
 
-        public void Initialize(global::Card card)
+        public IEnumerator Initialize(global::Card card)
         {
             Card = card;
 
             _cardAvatar.sprite = card.UIIcon;
             _cardStatsPanel.Init(card.Attack.ToString(), card.Def, card.Health, card.SkillIcon);
+
+            yield return StartIntro();
         }
 
-        public IEnumerator StartIntro()
+        private IEnumerator StartIntro()
         {
             _magicCircleImage.gameObject.SetActive(true);
 
             _animator.SetTrigger("Intro");
-            yield return new WaitForSeconds(_fallAnimatino.length);
+            yield return new WaitForSeconds(_fallAnimatino.length / _fallSpeed);
 
             _magicCircleImage.gameObject.SetActive(false);
 
