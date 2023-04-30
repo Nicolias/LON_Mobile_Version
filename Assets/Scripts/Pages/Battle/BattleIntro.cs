@@ -1,27 +1,29 @@
 ﻿using System.Collections;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Battle
 {
     public class BattleIntro : MonoBehaviour
     {
-        [SerializeField]
-        private TextMeshProUGUI _turnText;
+        [SerializeField] private TextMeshProUGUI _turnText;
+        [SerializeField] private float _showTime;
 
-        public void PlayButtleIntro()
+        public IEnumerator PlayButtleIntro()
         {
-            gameObject.SetActive(true);
-            _turnText.text = "Battle Start";
+            yield return ShowIntroText("Battle Start");
         }
 
         public IEnumerator PlayRoundIntro(int roundNumber)
         {
+            yield return ShowIntroText($"Round {roundNumber}");
+        }
+
+        private IEnumerator ShowIntroText(string text)
+        {
             gameObject.SetActive(true);
-            _turnText.text = $"Round {roundNumber}";
-            yield return new WaitForSeconds(1f);
+            _turnText.text = text;
+            yield return new WaitForSeconds(_showTime);
             gameObject.SetActive(false);
         }
     }

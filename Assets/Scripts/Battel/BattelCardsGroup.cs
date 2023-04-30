@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class BattelCardsGroup : MonoBehaviour
+public class BattelCardsGroup : MonoBehaviour
 {
     [SerializeField] private CardAnimator _battelCardTemplate;
     [SerializeField] private Transform _container;
