@@ -19,21 +19,12 @@ public class BattelStationSwitcher : Battel
         _playerAttackDeck = attackDeck;
     }
 
-    public override void StartFightWith(EnemyBattle enemy)
+    public override void Initialize(EnemyBattle enemy)
     {
         gameObject.SetActive(true);
 
         StartCoroutine(_playerCardsGroup.Initialize(_playerAttackDeck.CardCellsInDeck));
         StartCoroutine(_enemyCardsGroup.Initialize(enemy.Cards));
-
-
-        //foreach (var playerCard in _playerCardAnimators)
-        //    playerCard.Hide();
-
-        //foreach (var enemyCard in _enemyCardAnimators)
-        //    enemyCard.Hide();
-
-        //HideNonActiveCards(_attackDeck.CardsInDeck, _playerCardAnimators);
 
         //_allState = new()
         //{

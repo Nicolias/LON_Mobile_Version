@@ -153,8 +153,6 @@ namespace Cards.Card
             sequence
                 .Insert(0, transform.DOLocalMove(_localPosition, 0.2f))
                 .Insert(0, transform.DOScale(_scale, 0.2f));
-        }
-
-        
+        }        
     }
 }

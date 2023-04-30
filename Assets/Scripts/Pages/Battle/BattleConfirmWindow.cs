@@ -61,7 +61,7 @@ namespace FarmPage.Battle
             }
                 
             _energy.DecreaseEnergy(_battleEnergyPrice);
-            _battle.StartFightWith(_enemy);
+            _battle.Initialize(_enemy);
         }
     }
 }

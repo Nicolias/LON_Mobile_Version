@@ -40,7 +40,7 @@ namespace FarmPage.Battle
         private EnemyBattle _enemy;
         private Card[] _enemyCards;
 
-        public override void StartFightWith(EnemyBattle enemy)
+        public override void Initialize(EnemyBattle enemy)
         {
             _enemy = enemy;
 
@@ -55,12 +55,12 @@ namespace FarmPage.Battle
 
         private void RenderEnemyDefCard()
         {
-            _enemyCards = _enemy.Cards.ToArray();
+            //_enemyCards = _enemy.Cards.ToArray();
             
-            for (int i = 0; i < _enemy.Cards.Count; i++)
-            {
-                _enemyCardAnimators[i].Initialize(_enemyCards[i]);
-            }
+            //for (int i = 0; i < _enemy.Cards.Count; i++)
+            //{
+            //    _enemyCardAnimators[i].Initialize(_enemyCards[i]);
+            //}
         }
 
         private IEnumerator Fight()
@@ -241,10 +241,10 @@ namespace FarmPage.Battle
     
         private void RenderPlayerCards(List<CardCellInDeck> cardCells, CardAnimator[] cardAnimators)
         {
-            for (int i = 0; i < cardCells.Count; i++)
-            {
-                cardAnimators[i].Initialize(cardCells[i].Card);
-            }
+            //for (int i = 0; i < cardCells.Count; i++)
+            //{
+            //    cardAnimators[i].Initialize(cardCells[i].Card);
+            //}
         }
 
         private Card[] GetCardArrayFrom(List<CardCellInDeck> cardsInDeck)

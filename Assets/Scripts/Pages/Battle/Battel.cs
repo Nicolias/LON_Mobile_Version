@@ -4,7 +4,7 @@ namespace FarmPage.Battle
 {
     public class Battel : MonoBehaviour
     {
-        public virtual void StartFightWith(EnemyBattle enemy)
+        public virtual void Initialize(EnemyBattle enemy)
         {
 
         }
