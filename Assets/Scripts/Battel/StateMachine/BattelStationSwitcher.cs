@@ -17,6 +17,8 @@ public class BattelStationSwitcher : Battel
 
     private CoroutineServise _coroutineServise;
 
+    public int CurrentRound { get; private set; }
+
     [Inject]
     public void Construct(AttackDeck attackDeck, CoroutineServise coroutineServise)
     {
@@ -30,17 +32,20 @@ public class BattelStationSwitcher : Battel
 
         _allState = new()
         {
-            new SetUpBattelState(_playerCardsGroup, _enemyCardsGroup, 
-            _playerAttackDeck, enemy, 
-            _coroutineServise, _battleIntro, this)
+            new SetUpBattelState(_playerCardsGroup, _enemyCardsGroup,
+            _playerAttackDeck, enemy,
+            _coroutineServise, _battleIntro, this),
+
+            new RoundState(_playerCardsGroup, _enemyCardsGroup, this, _battleIntro, _coroutineServise)
         };
 
         SwitchState<SetUpBattelState>();
     }
 
-    public void StartFight()
+    public void StartNewRound()
     {
-        SwitchState<BaseState>();
+        CurrentRound++;
+        SwitchState<RoundState>();
     }
 
     private void SwitchState<T>() where T : BaseState
@@ -49,7 +54,7 @@ public class BattelStationSwitcher : Battel
             _currentState.Exit();
 
         var state = _allState.FirstOrDefault(s => s is T);
-        state.Enter();
+        StartCoroutine(state.Enter());
         _currentState = state;
     }
 }
