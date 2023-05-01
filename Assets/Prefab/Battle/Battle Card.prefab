@@ -9837,7 +9837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 468538775999385478}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: EffectsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

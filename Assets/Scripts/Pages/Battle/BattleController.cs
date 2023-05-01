@@ -129,12 +129,12 @@ namespace FarmPage.Battle
                 var attackEffect = randomMyCard.AttackEffect;
                 var attack = randomMyCard.Attack;
 
-                if (IsRandomChange(randomMyCard.SkillChance))
+                if (IsRandomChance(randomMyCard.SkillChance))
                 {
                     var skillEffect = randomMyCard.SkillEffect;
                     
                     foreach (var opponentCardAnimator in opponentCardAnimators)
-                        StartCoroutine(opponentCardAnimator.Hit(skillEffect, attack));
+                        StartCoroutine(opponentCardAnimator.TakeDamage(skillEffect, attack));
 
                     yield return new WaitForSeconds(0.2f);
                     shaking.Shake(0.5f, 10);
@@ -179,7 +179,7 @@ namespace FarmPage.Battle
                         turnEffect.transform.localScale = turnEffect.transform.localScale.ToX(scale);
                         turnEffect.SetTrigger(Effect);
                             
-                        StartCoroutine(opponentCardAnimator.Hit(attackEffect, attack));
+                        StartCoroutine(opponentCardAnimator.TakeDamage(attackEffect, attack));
 
                         
                         yield return new WaitForSeconds(0.2f);
@@ -212,8 +212,8 @@ namespace FarmPage.Battle
             return null;
         }
 
-        private bool IsRandomChange(float change) => 
-            Random.Range(0, 10000) <= (int)(change * 100);
+        private bool IsRandomChance(float chance) => 
+            Random.Range(0, 10000) <= (int)(chance * 100);
 
         private int GetAmountCardsHealth(CardAnimator[] cards)
         {

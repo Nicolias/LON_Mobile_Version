@@ -6,14 +6,11 @@ namespace Cards
 {
     public class CardStatsPanel : MonoBehaviour
     {
-        [SerializeField] 
-        private TextMeshProUGUI _attackText;
+        [SerializeField] private TextMeshProUGUI _attackText;
 
-        [SerializeField] 
-        private TextMeshProUGUI _defenseText;
+        [SerializeField] private TextMeshProUGUI _defenseText;
 
-        [SerializeField] 
-        private TextMeshProUGUI _healthText;
+        [SerializeField] private TextMeshProUGUI _healthText;
 
         [SerializeField] private Image _skillImage;
 

@@ -17,8 +17,13 @@ public class RoundState : BaseState
         while (true)
         {
             yield return BattelIntro.PlayRoundIntro(_currentRound);
-            yield return _currentRound % 2 != 0 ? PlayerCardsGroup.Turn() : EnemyCardsGroup.Turn();
-            yield return false;
+            yield return _currentRound % 2 != 0 ? PlayerCardsGroup.Turn(EnemyCardsGroup) 
+                : EnemyCardsGroup.Turn(PlayerCardsGroup);
+
+            if (PlayerCardsGroup.CardsInGroup.Count == 0 || EnemyCardsGroup.CardsInGroup.Count == 0)
+                yield break;
+
+            _currentRound++;
         }
     }
 

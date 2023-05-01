@@ -2,12 +2,15 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Cards.Card
 {
     public class CardAnimator : MonoBehaviour
     {
+        public event UnityAction OnDead;
+
         [SerializeField] private Image _cardAvatar, _deadImage, _selectImage, _magicCircleImage;
 
         [SerializeField] private Animator _animator;
@@ -79,16 +82,53 @@ namespace Cards.Card
             _scale = transform.localScale;
         }
 
-        public IEnumerator Hit(ParticleSystem attackEffect, int attack)
+        public IEnumerator AttackEnemy(BattelCardsGroup enemiesGroup)
+        {
+            CardAnimator enemy = SelectEnemy(enemiesGroup);
+            if (enemy == null)
+                yield return null;
+
+            Sequence sequence = DOTween.Sequence();
+
+            Vector3 startPosition = transform.position;
+
+            sequence
+                .Append(transform.DORotate(new Vector3(0, 0, GetZAngelBetweenCurrentCharacterAnd(enemy)), 0.4f).SetEase(Ease.InCubic))
+                .Append(transform.DOMove(enemy.transform.position, 0.7f).SetEase(Ease.InOutBack))
+                .AppendCallback(() =>
+                {
+                    StartCoroutine(enemy.TakeDamage(Card.SkillEffect, Card.Attack));
+                })
+                .Append(transform.DORotate(new Vector3(0, 0, 0), 0.4f));
+
+            yield return new WaitUntil(() => sequence.IsPlaying() == false);
+
+            float GetZAngelBetweenCurrentCharacterAnd(CardAnimator enemy)
+            {
+                float x = enemy.transform.position.y - transform.position.y;
+                float y = enemy.transform.position.x - transform.position.x;
+
+                return Mathf.Atan(-y / x) * 180 / Mathf.PI;
+            }
+        }
+
+        private CardAnimator SelectEnemy(BattelCardsGroup enemiesGroup)
+        {
+            if (enemiesGroup.CardsInGroup.Count != 0)
+                return enemiesGroup.CardsInGroup[Random.Range(0, enemiesGroup.CardsInGroup.Count)];
+            else
+                return null;
+        }
+
+        public IEnumerator TakeDamage(ParticleSystem attackEffect, int damage)
         {
             var effect = Instantiate(attackEffect, _effectContainer);
+            effect.transform.localPosition = new(effect.transform.localPosition.x, effect.transform.localPosition.y, -4);
             effect.Play();
             yield return Shake();
-
-            yield return new WaitForSeconds(0.3f);
     
             var damageText = _damageTexts[0];
-            _cardStatsPanel.DecreaseHealth(attack);
+            _cardStatsPanel.DecreaseHealth(damage);
             HealthLeft = _cardStatsPanel.Health;
             var finelDamage = _cardStatsPanel.DamageAfterRessist;
 
@@ -102,14 +142,16 @@ namespace Cards.Card
             
             yield return new WaitForSeconds(0.6f);
             damageText.DOColor(new Color(1, 0, 0, 0), 0.3f);
-            yield return new WaitForSeconds(0.3f);
 
             Destroy(effect);
 
             _cardStatsPanel.HealthText.color = _numberNormalColor;
 
             if (HealthLeft == 0)
+            {
                 _deadImage.DOColor(new Color(0,0,0, 0.5f), 1);
+                OnDead?.Invoke();
+            }
         }
 
         private void Hide()

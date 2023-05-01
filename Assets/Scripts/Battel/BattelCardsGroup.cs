@@ -1,4 +1,5 @@
 ﻿using Cards.Card;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,20 @@ public class BattelCardsGroup : MonoBehaviour
     [SerializeField] private CardAnimator _battelCardTemplate;
     [SerializeField] private Transform _container;
 
+    public DiContainer _di;
+
     private BattelCardsFactory _battelCardsFactory;
 
     private List<CardAnimator> _cardsInGroup;
+    private CardAnimator _currentCharacter;
+
+    [Inject]
+    public void Constract(DiContainer di)
+    {
+        _di = di;
+    }
+
+    public List<CardAnimator> CardsInGroup => _cardsInGroup;
 
     public IEnumerator Initialize(List<CardCellInDeck> currentDeckCards)
     {
@@ -25,63 +37,32 @@ public class BattelCardsGroup : MonoBehaviour
 
     public IEnumerator Initialize(List<Card> currentDeckCards)
     {
-        _battelCardsFactory = new(_battelCardTemplate, _container, currentDeckCards);
+        _battelCardsFactory = new(_battelCardTemplate, _container, currentDeckCards, _di);
         yield return _battelCardsFactory.CreateBattleCard();
         _cardsInGroup = _battelCardsFactory.GetCreatedCards();
+
+        foreach (var cardInGroup in _cardsInGroup)
+        {
+            cardInGroup.OnDead += () => _cardsInGroup.Remove(cardInGroup);
+        }
     }
 
-    public IEnumerator Turn()
+    public IEnumerator Turn(BattelCardsGroup enemiesGroup)
     {
         if (_cardsInGroup == null)
             throw new System.Exception("Cards isn't inizialized");
 
-
-
-        yield return null;
-    }    
-}
-
-public class BattelCardsFactory
-{
-    private DiContainer _di;
-
-    private CardAnimator _battelCardTemplate;
-    private Transform _container;
-
-    private List<Card> _dataCardsInGroup;
-    private List<CardAnimator> _cardsInGroup;
-
-    public BattelCardsFactory(CardAnimator battelCardTemplate, Transform container, List<Card> dataCardsInGroup)
-    {
-        _battelCardTemplate = battelCardTemplate;
-        _container = container;
-        _dataCardsInGroup = dataCardsInGroup;
-    }
-
-    public IEnumerator CreateBattleCard()
-    {
-        List<CardAnimator> newBattelCards = new();
-        _cardsInGroup = new();
-
-        foreach (Card cardInGroup in _dataCardsInGroup)
+        _cardsInGroup.Shuffle();
+        
+        for (int i = 0; i < _cardsInGroup.Count; i++)
         {
-            var newBattelCard = _di.InstantiatePrefabForComponent<CardAnimator>(_battelCardTemplate, _container);
-            yield return newBattelCard.Initialize(cardInGroup);
-            newBattelCards.Add(newBattelCard);
-        }
+            if(enemiesGroup.CardsInGroup.Count == 0)
+                yield return null;
 
-        _cardsInGroup = newBattelCards;
-    }
-
-    public List<CardAnimator> GetCreatedCards()
-    {
-        if (_cardsInGroup == null)
-            throw new System.Exception("For begining need to create cards");
-
-        List<CardAnimator> cardsInGrop = new();
-        cardsInGrop.AddRange(_cardsInGroup);
-        _cardsInGroup = null;
-
-        return cardsInGrop;
-    }
+            _currentCharacter = _cardsInGroup[i];
+            _currentCharacter.Selected();
+            yield return _currentCharacter.AttackEnemy(enemiesGroup);
+            _currentCharacter.Unselected();
+        }        
+    }       
 }
