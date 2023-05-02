@@ -25488,7 +25488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6104a9be91ff1a4e8ab830c75f8f4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardUi:
+  _battelCardUi:
     _cardAvatar: {fileID: 3476695820825171205}
     _deadImage: {fileID: 1782657232895295617}
     _selectImage: {fileID: 6140562447222469931}
@@ -25498,23 +25498,14 @@ MonoBehaviour:
     _fallSpeed: 7
     _burstParticleWhenCircleFalt: {fileID: 2591138484952063318}
     _effectContainer: {fileID: 468538775999385478}
-    _damageTexts: []
-    _cardStatsPanel: {fileID: 5947848444150752152}
+    _damageTexts:
+    - {fileID: 1171298312001499701}
+    - {fileID: 386787065332348297}
+    - {fileID: 8521729810300419576}
+    - {fileID: 8538114378654606071}
     _frame: {fileID: 2301907191297677781}
-    _numberNormalColor: {r: 0.8235295, g: 0.62352943, b: 0.32941177, a: 1}
-  _cardAvatar: {fileID: 0}
-  _deadImage: {fileID: 0}
-  _selectImage: {fileID: 0}
-  _magicCircleImage: {fileID: 0}
-  _animator: {fileID: 0}
-  _fallAnimatino: {fileID: 0}
-  _fallSpeed: 0
-  _burstParticleWhenCircleFalt: {fileID: 0}
-  _effectContainer: {fileID: 0}
-  _damageTexts: []
-  _cardStatsPanel: {fileID: 0}
-  _frame: {fileID: 0}
-  _numberNormalColor: {r: 0, g: 0, b: 0, a: 0}
+    _numberNormalColor: {r: 0.8313726, g: 0.627451, b: 0.3254902, a: 1}
+  _cardStatsPanel: {fileID: 5947848444150752152}
 --- !u!1 &3542244712043702872
 GameObject:
   m_ObjectHideFlags: 0

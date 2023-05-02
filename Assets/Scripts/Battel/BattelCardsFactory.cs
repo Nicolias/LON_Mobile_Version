@@ -24,6 +24,8 @@ public class BattelCardsFactory
 
     public IEnumerator CreateBattleCard()
     {
+        if (_battelCardTemplate == null) throw new System.NullReferenceException();
+
         List<BattelCard> newBattelCards = new();
         _cardsInGroup = new();
 

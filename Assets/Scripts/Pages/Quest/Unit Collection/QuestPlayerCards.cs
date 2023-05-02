@@ -14,6 +14,7 @@ public class QuestPlayerCards : QuestCollection
     protected override Unit[] GetArrayType()
     {
         return new FarmPage.Quest.Card[_attackDeck.CardCellsInDeck.Count];
+
     }
 
     protected override void InitUnit(Unit unit, int position)

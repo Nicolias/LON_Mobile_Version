@@ -135,7 +135,7 @@ namespace FarmPage.Battle
                     var skillEffect = randomMyCard.SkillEffect;
                     
                     foreach (var opponentCardAnimator in opponentCardAnimators)
-                        StartCoroutine(opponentCardAnimator.TakeDamage(skillEffect, attack));
+                        //StartCoroutine(opponentCardAnimator.TakeDamage(skillEffect, attack));
 
                     yield return new WaitForSeconds(0.2f);
                     shaking.Shake(0.5f, 10);
@@ -180,7 +180,7 @@ namespace FarmPage.Battle
                         turnEffect.transform.localScale = turnEffect.transform.localScale.ToX(scale);
                         turnEffect.SetTrigger(Effect);
                             
-                        StartCoroutine(opponentCardAnimator.TakeDamage(attackEffect, attack));
+                        //StartCoroutine(opponentCardAnimator.TakeDamage(attackEffect, attack));
 
                         
                         yield return new WaitForSeconds(0.2f);
