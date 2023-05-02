@@ -19,9 +19,9 @@ namespace FarmPage.Battle
 
         [SerializeField] private BattleIntro _roundIntro;
 
-        [SerializeField] private CardAnimator[] _enemyCardAnimators;
+        [SerializeField] private BattelCard[] _enemyCardAnimators;
 
-        [SerializeField] private CardAnimator[] _playerCardAnimators;
+        [SerializeField] private BattelCard[] _playerCardAnimators;
 
         [SerializeField] private Shaking shaking;
 
@@ -104,7 +104,7 @@ namespace FarmPage.Battle
         }
 
             private IEnumerator Turn(List<int> myAliveCardNumbers, List<int> opponentAliveCardNumbers, 
-            List<CardAnimator> myCardAnimators, List<CardAnimator> opponentCardAnimators, List<Card> myCards, List<Card> opponentCards)
+            List<BattelCard> myCardAnimators, List<BattelCard> opponentCardAnimators, List<Card> myCards, List<Card> opponentCards)
         {
             var randomMyCardDamageCount = _enemyCardAnimators.Length < 2 ? 1 : 2;
 
@@ -116,9 +116,10 @@ namespace FarmPage.Battle
                 var myCardAnimator = FindRandomAliveCard(myCardAnimators);
                 if (myCardAnimator == null) throw new InvalidOperationException();
 
-                Card randomMyCard = myCardAnimator.Card;
+                //Card randomMyCard = myCardAnimator.Card;
+                Card randomMyCard = null;
 
-                myCardAnimator.Selected();
+                //myCardAnimator.Select();
                 yield return new WaitForSeconds(0.2f);
 
                 var randomOpponentCardDamageCount = 1;
@@ -144,7 +145,7 @@ namespace FarmPage.Battle
                 {
                     for (int k = 0; k < randomOpponentCardDamageCount; k++)
                     {
-                        CardAnimator opponentCardAnimator = FindRandomAliveCard(opponentCardAnimators);
+                        BattelCard opponentCardAnimator = FindRandomAliveCard(opponentCardAnimators);
 
                         if (opponentCardAnimator == null) yield break;
 
@@ -189,7 +190,7 @@ namespace FarmPage.Battle
                         turnEffectImage.DOColor(Color.clear, 0.2f).OnComplete(()=>Destroy(turnEffect.gameObject));
                     }
 
-                    myCardAnimator.Unselected();
+                    //myCardAnimator.Unselect();
                     
                     yield return new WaitForSeconds(0.7f);
                 }
@@ -198,7 +199,7 @@ namespace FarmPage.Battle
             yield return new WaitForSeconds(1);
         }
 
-        private CardAnimator FindRandomAliveCard(List<CardAnimator> opponents)
+        private BattelCard FindRandomAliveCard(List<BattelCard> opponents)
         {
             var randomOpponent = opponents[Random.Range(0, opponents.Count)];
 
@@ -215,11 +216,11 @@ namespace FarmPage.Battle
         private bool IsRandomChance(float chance) => 
             Random.Range(0, 10000) <= (int)(chance * 100);
 
-        private int GetAmountCardsHealth(CardAnimator[] cards)
+        private int GetAmountCardsHealth(BattelCard[] cards)
         {
             int amountHealt = 0;
 
-            foreach (CardAnimator card in cards)
+            foreach (BattelCard card in cards)
                 if (card != null)
                 amountHealt += card.HealthLeft;
 
@@ -239,7 +240,7 @@ namespace FarmPage.Battle
             return aliveCards;
         }
     
-        private void RenderPlayerCards(List<CardCellInDeck> cardCells, CardAnimator[] cardAnimators)
+        private void RenderPlayerCards(List<CardCellInDeck> cardCells, BattelCard[] cardAnimators)
         {
             //for (int i = 0; i < cardCells.Count; i++)
             //{

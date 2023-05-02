@@ -25410,7 +25410,7 @@ GameObject:
   - component: {fileID: 4083935243376932165}
   - component: {fileID: 3397760837232840308}
   - component: {fileID: 922095209666069239}
-  - component: {fileID: -8321465666958115488}
+  - component: {fileID: 4761267396107171861}
   m_Layer: 5
   m_Name: Battle Card
   m_TagString: Untagged
@@ -25476,7 +25476,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-8321465666958115488
+--- !u!114 &4761267396107171861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25485,26 +25485,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 3443959438799042357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b8d8484e7124f449cddaa12a5f0c3fd, type: 3}
+  m_Script: {fileID: 11500000, guid: f6104a9be91ff1a4e8ab830c75f8f4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardAvatar: {fileID: 3476695820825171205}
-  _deadImage: {fileID: 1782657232895295617}
-  _selectImage: {fileID: 6140562447222469931}
-  _magicCircleImage: {fileID: 3390295731185330231}
-  _animator: {fileID: 922095209666069239}
-  _fallAnimatino: {fileID: 7400000, guid: 2617bccf64980bf468e06907fb3dde69, type: 2}
-  _fallSpeed: 7
-  _burstParticleWhenCircleFalt: {fileID: 2591138484952063318}
-  _effectContainer: {fileID: 468538775999385478}
-  _damageTexts:
-  - {fileID: 1171298312001499701}
-  - {fileID: 386787065332348297}
-  - {fileID: 8521729810300419576}
-  - {fileID: 8538114378654606071}
-  _cardStatsPanel: {fileID: 5947848444150752152}
-  _frame: {fileID: 2301907191297677781}
-  _numberNormalColor: {r: 0.8313726, g: 0.627451, b: 0.3254902, a: 1}
+  _cardUi:
+    _cardAvatar: {fileID: 3476695820825171205}
+    _deadImage: {fileID: 1782657232895295617}
+    _selectImage: {fileID: 6140562447222469931}
+    _magicCircleImage: {fileID: 3390295731185330231}
+    _animator: {fileID: 922095209666069239}
+    _fallAnimatino: {fileID: 7400000, guid: 2617bccf64980bf468e06907fb3dde69, type: 2}
+    _fallSpeed: 7
+    _burstParticleWhenCircleFalt: {fileID: 2591138484952063318}
+    _effectContainer: {fileID: 468538775999385478}
+    _damageTexts: []
+    _cardStatsPanel: {fileID: 5947848444150752152}
+    _frame: {fileID: 2301907191297677781}
+    _numberNormalColor: {r: 0.8235295, g: 0.62352943, b: 0.32941177, a: 1}
+  _cardAvatar: {fileID: 0}
+  _deadImage: {fileID: 0}
+  _selectImage: {fileID: 0}
+  _magicCircleImage: {fileID: 0}
+  _animator: {fileID: 0}
+  _fallAnimatino: {fileID: 0}
+  _fallSpeed: 0
+  _burstParticleWhenCircleFalt: {fileID: 0}
+  _effectContainer: {fileID: 0}
+  _damageTexts: []
+  _cardStatsPanel: {fileID: 0}
+  _frame: {fileID: 0}
+  _numberNormalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3542244712043702872
 GameObject:
   m_ObjectHideFlags: 0

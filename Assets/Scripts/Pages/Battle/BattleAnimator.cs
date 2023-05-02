@@ -17,7 +17,7 @@ namespace Battle
 
         [SerializeField] private BattleIntro _battleIntro;
 
-        public IEnumerator AppearanceCards(CardAnimator[] enemyCardAnimators, CardAnimator[] playerCardAnimators, 
+        public IEnumerator AppearanceCards(BattelCard[] enemyCardAnimators, BattelCard[] playerCardAnimators, 
             List<int> playerCards, List<int> enemyCards)
         {
             StartCoroutine(ShowSideAllCards(enemyCardAnimators, 1000, _enemyHorizontalLayoutGroup, enemyCards));
@@ -26,7 +26,7 @@ namespace Battle
             yield return new WaitForSeconds(0.2f);
         }
 
-        private IEnumerator ShowSideAllCards(CardAnimator[] cardAnimators, float y, GridLayoutGroup horizontalLayoutGroup, List<int> cards)
+        private IEnumerator ShowSideAllCards(BattelCard[] cardAnimators, float y, GridLayoutGroup horizontalLayoutGroup, List<int> cards)
         {
             var sequence = DOTween.Sequence();
 

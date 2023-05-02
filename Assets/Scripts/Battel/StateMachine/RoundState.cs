@@ -14,21 +14,35 @@ public class RoundState : BaseState
     {
         _currentRound = BattelStationSwitcher.CurrentRound;
 
-        while (true)
+        yield return BattelIntro.PlayRoundIntro(_currentRound);
+
+        yield return _currentRound % 2 != 0 ? Turn(PlayerCardsGroup, EnemyCardsGroup) : Turn(EnemyCardsGroup, PlayerCardsGroup);
+
+        if (PlayerCardsGroup.CardsInGroup.Count != 0 && EnemyCardsGroup.CardsInGroup.Count != 0)
         {
-            yield return BattelIntro.PlayRoundIntro(_currentRound);
-            yield return _currentRound % 2 != 0 ? PlayerCardsGroup.Turn(EnemyCardsGroup) 
-                : EnemyCardsGroup.Turn(PlayerCardsGroup);
-
-            if (PlayerCardsGroup.CardsInGroup.Count == 0 || EnemyCardsGroup.CardsInGroup.Count == 0)
-                yield break;
-
-            _currentRound++;
+            BattelStationSwitcher.StartNewRound();
         }
     }
 
     public override void Exit()
     {
         
+    }
+
+    private IEnumerator Turn(BattelCardsGroup attacker, BattelCardsGroup defender)
+    {
+        SwapCardsGroupSibilingIndex(attacker, defender);
+
+        yield return attacker.Turn(defender);
+    }
+
+    private void SwapCardsGroupSibilingIndex(BattelCardsGroup sholdeBeUp, BattelCardsGroup sholdeBeDown) 
+    { 
+        if (sholdeBeUp.transform.GetSiblingIndex() < sholdeBeDown.transform.GetSiblingIndex())
+        {
+            int temp = sholdeBeDown.transform.GetSiblingIndex();
+            sholdeBeDown.transform.SetSiblingIndex(sholdeBeUp.transform.GetSiblingIndex());
+            sholdeBeUp.transform.SetSiblingIndex(temp);
+        }
     }
 }

@@ -7,15 +7,15 @@ using Zenject;
 
 public class BattelCardsGroup : MonoBehaviour
 {
-    [SerializeField] private CardAnimator _battelCardTemplate;
+    [SerializeField] private BattelCard _battelCardTemplate;
     [SerializeField] private Transform _container;
 
-    public DiContainer _di;
+    private DiContainer _di;
 
     private BattelCardsFactory _battelCardsFactory;
 
-    private List<CardAnimator> _cardsInGroup;
-    private CardAnimator _currentCharacter;
+    private List<BattelCard> _cardsInGroup;
+    private BattelCard _currentCharacter;
 
     [Inject]
     public void Constract(DiContainer di)
@@ -23,7 +23,7 @@ public class BattelCardsGroup : MonoBehaviour
         _di = di;
     }
 
-    public List<CardAnimator> CardsInGroup => _cardsInGroup;
+    public List<BattelCard> CardsInGroup => _cardsInGroup;
 
     public IEnumerator Initialize(List<CardCellInDeck> currentDeckCards)
     {
@@ -42,9 +42,7 @@ public class BattelCardsGroup : MonoBehaviour
         _cardsInGroup = _battelCardsFactory.GetCreatedCards();
 
         foreach (var cardInGroup in _cardsInGroup)
-        {
             cardInGroup.OnDead += () => _cardsInGroup.Remove(cardInGroup);
-        }
     }
 
     public IEnumerator Turn(BattelCardsGroup enemiesGroup)
@@ -60,9 +58,7 @@ public class BattelCardsGroup : MonoBehaviour
                 yield return null;
 
             _currentCharacter = _cardsInGroup[i];
-            _currentCharacter.Selected();
             yield return _currentCharacter.AttackEnemy(enemiesGroup);
-            _currentCharacter.Unselected();
         }        
     }       
 }

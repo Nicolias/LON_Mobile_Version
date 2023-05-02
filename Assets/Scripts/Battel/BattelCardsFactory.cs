@@ -8,13 +8,13 @@ public class BattelCardsFactory
 {
     private DiContainer _di;
 
-    private CardAnimator _battelCardTemplate;
+    private BattelCard _battelCardTemplate;
     private Transform _container;
 
     private List<Card> _dataCardsInGroup;
-    private List<CardAnimator> _cardsInGroup;
+    private List<BattelCard> _cardsInGroup;
 
-    public BattelCardsFactory(CardAnimator battelCardTemplate, Transform container, List<Card> dataCardsInGroup, DiContainer di)
+    public BattelCardsFactory(BattelCard battelCardTemplate, Transform container, List<Card> dataCardsInGroup, DiContainer di)
     {
         _battelCardTemplate = battelCardTemplate;
         _container = container;
@@ -24,12 +24,12 @@ public class BattelCardsFactory
 
     public IEnumerator CreateBattleCard()
     {
-        List<CardAnimator> newBattelCards = new();
+        List<BattelCard> newBattelCards = new();
         _cardsInGroup = new();
 
         foreach (Card cardInGroup in _dataCardsInGroup)
         {
-            var newBattelCard = _di.InstantiatePrefabForComponent<CardAnimator>(_battelCardTemplate, _container);
+            var newBattelCard = _di.InstantiatePrefabForComponent<BattelCard>(_battelCardTemplate, _container);
             yield return newBattelCard.Initialize(cardInGroup);
             newBattelCards.Add(newBattelCard);
         }
@@ -37,12 +37,12 @@ public class BattelCardsFactory
         _cardsInGroup = newBattelCards;
     }
 
-    public List<CardAnimator> GetCreatedCards()
+    public List<BattelCard> GetCreatedCards()
     {
         if (_cardsInGroup == null)
             throw new System.Exception("For begining need to create cards");
 
-        List<CardAnimator> cardsInGrop = new();
+        List<BattelCard> cardsInGrop = new();
         cardsInGrop.AddRange(_cardsInGroup);
         _cardsInGroup = null;
 
