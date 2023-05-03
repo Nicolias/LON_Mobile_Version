@@ -15,8 +15,9 @@ namespace Cards.BattelCard
         private Vector3 _scale;
         private Vector3 _localPosition;
 
-        public BattelCardAttackAnimation(BattelCard battelCard)
+        public BattelCardAttackAnimation(BattelCard battelCard, Image selectImage)
         {
+            _selectImage = selectImage;
             transform = battelCard.transform;
         }
 
@@ -29,9 +30,10 @@ namespace Cards.BattelCard
             _localPosition = localPosition;
             Vector3 startPosition = transform.position;
 
+            AnimateSelect();
+
             Sequence sequence = DOTween.Sequence();
 
-            AnimateSelect();
             AnimateMoveToAndAttack(enemy, sequence, enemyTakeDamageMethod);
 
             yield return new WaitUntil(() => sequence.IsPlaying() == false);
@@ -54,7 +56,7 @@ namespace Cards.BattelCard
                 .Append(transform.DORotate(new Vector3(0, 0, GetZAngelBetweenCurrentCharacterAnd(enemy)), 0.4f).SetEase(Ease.InCubic))
                 .Append(transform.DOMove(enemy.transform.position, 0.7f).SetEase(Ease.InOutBack))
                 .AppendCallback(() => enemyTakeDamageMethod.Invoke())
-                .Append(transform.DORotate(new Vector3(0, 0, 0), 0.4f));
+                .Append(transform.DORotate(new Vector3(0, 0, 0), 0.4f));    
         }
 
         private float GetZAngelBetweenCurrentCharacterAnd(BattelCard enemy)

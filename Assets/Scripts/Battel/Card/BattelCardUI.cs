@@ -51,7 +51,7 @@ namespace Cards.BattelCard
             _animator.SetFloat("Fall Speed", _fallSpeed);
             _deadImage.DOColor(new Color(0, 0, 0, 0), 0);
 
-            _attackAnimation = new(battelCard);
+            _attackAnimation = new(battelCard, _selectImage);
         }
 
         public void Hide()
