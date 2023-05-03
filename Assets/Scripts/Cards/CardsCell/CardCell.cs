@@ -82,7 +82,7 @@ public abstract class CardCell : MonoBehaviour, ICard
             if (Card.Id != 0)
             {
                 _cardStatsPanel.gameObject.SetActive(true);
-                _cardStatsPanel.Init(Attack.ToString(), Def, Health, _card.SkillIcon);
+                _cardStatsPanel.Initialize(Attack.ToString(), Def, Health, _card.SkillIcon);
                 _icon.sprite = card.UIIcon;
             }
         }

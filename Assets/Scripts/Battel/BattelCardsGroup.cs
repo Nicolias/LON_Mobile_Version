@@ -1,4 +1,4 @@
-﻿using Cards.Card;
+﻿using Cards.BattelCard;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,8 +54,8 @@ public class BattelCardsGroup : MonoBehaviour
         
         for (int i = 0; i < _cardsInGroup.Count; i++)
         {
-            if(enemiesGroup.CardsInGroup.Count == 0)
-                yield return null;
+            if (enemiesGroup.CardsInGroup.Count == 0)
+                yield break;
 
             _currentCharacter = _cardsInGroup[i];
             yield return _currentCharacter.AttackEnemy(enemiesGroup);

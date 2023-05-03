@@ -25410,7 +25410,7 @@ GameObject:
   - component: {fileID: 4083935243376932165}
   - component: {fileID: 3397760837232840308}
   - component: {fileID: 922095209666069239}
-  - component: {fileID: 4761267396107171861}
+  - component: {fileID: 5668833283650481892}
   m_Layer: 5
   m_Name: Battle Card
   m_TagString: Untagged
@@ -25476,7 +25476,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4761267396107171861
+--- !u!114 &5668833283650481892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25485,7 +25485,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3443959438799042357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6104a9be91ff1a4e8ab830c75f8f4ab, type: 3}
+  m_Script: {fileID: 11500000, guid: e7a760a47e8623c468b18df645ed9168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _battelCardUi:

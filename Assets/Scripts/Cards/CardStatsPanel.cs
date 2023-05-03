@@ -22,7 +22,7 @@ namespace Cards
         public int DamageAfterRessist { get; private set; }
         public TMP_Text HealthText => _healthText;
 
-        public void Init(string attack, int defence, int health, Sprite scillIcon)
+        public void Initialize(string attack, int defence, int health, Sprite scillIcon)
         {
             _health = health;
             _defence = defence;

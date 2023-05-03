@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Cards.Card;
+using Cards.BattelCard;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;

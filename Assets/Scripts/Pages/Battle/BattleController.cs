@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Battle;
-using Cards.Card;
+using Cards.BattelCard;
 using DG.Tweening;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
