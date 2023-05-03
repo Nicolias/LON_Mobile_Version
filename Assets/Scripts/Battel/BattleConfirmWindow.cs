@@ -6,7 +6,7 @@ namespace FarmPage.Battle
 {
     public class BattleConfirmWindow : MonoBehaviour
     {
-        [SerializeField] private Battel _battle;
+        [SerializeField] private BattleStationSwitcher _battle;
 
         [SerializeField] private AttackDeck _attackDeck;
         [SerializeField] private Energy _energy;

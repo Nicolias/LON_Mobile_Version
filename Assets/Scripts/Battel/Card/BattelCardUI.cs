@@ -36,7 +36,7 @@ namespace Cards.BattelCard
         private Vector3 _scale;
         private Vector3 _localPosition;
 
-        public void Initialize(BattelCard battelCard, global::Card card, 
+        public void Initialize(BattelCard battelCard, Card card, 
             CardStatsPanel cardStatsPanel, CoroutineServise coroutineServise)
         {
             _coroutineServise = coroutineServise;

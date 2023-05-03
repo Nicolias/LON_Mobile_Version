@@ -9,7 +9,7 @@ public class SetUpBattelState : BaseState
 
     public SetUpBattelState(BattelCardsGroup playerCardsGroup, BattelCardsGroup enemyCardsGroup, 
         AttackDeck playerAttackDeck, EnemyBattle enemy, 
-        CoroutineServise coroutineServise, BattleIntro battleIntro, BattelStationSwitcher battelStationSwitcher) 
+        CoroutineServise coroutineServise, BattleIntro battleIntro, BattleStationSwitcher battelStationSwitcher) 
         : base(battelStationSwitcher, coroutineServise, battleIntro, playerCardsGroup, enemyCardsGroup)
     {
         _playerAttackDeck = playerAttackDeck;

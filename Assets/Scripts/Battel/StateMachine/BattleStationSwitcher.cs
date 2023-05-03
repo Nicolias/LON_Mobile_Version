@@ -1,20 +1,22 @@
 using Battle;
-using FarmPage.Battle;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class BattelStationSwitcher : Battel
+public class BattleStationSwitcher : MonoBehaviour
 {
     [SerializeField] private BattelCardsGroup _playerCardsGroup, _enemyCardsGroup;
     [SerializeField] private BattleIntro _battleIntro;
+
+    [SerializeField] private Window _winWindow;
+    [SerializeField] private Window _loseWindow;
+    [SerializeField] private PrizeWindow _prizeWindow;
 
     private BaseState _currentState;
     private List<BaseState> _allState;
 
     private AttackDeck _playerAttackDeck;
-
     private CoroutineServise _coroutineServise;
 
     public int CurrentRound { get; private set; }
@@ -26,7 +28,7 @@ public class BattelStationSwitcher : Battel
         _coroutineServise = coroutineServise;
     }
 
-    public override void Initialize(EnemyBattle enemy)
+    public void Initialize(EnemyBattle enemy)
     {
         gameObject.SetActive(true);
 
@@ -36,7 +38,9 @@ public class BattelStationSwitcher : Battel
             _playerAttackDeck, enemy,
             _coroutineServise, _battleIntro, this),
 
-            new RoundState(_playerCardsGroup, _enemyCardsGroup, this, _battleIntro, _coroutineServise)
+            new RoundState(_playerCardsGroup, _enemyCardsGroup, this, _battleIntro, _coroutineServise),
+
+            new BattelResultState(_winWindow, _loseWindow, _prizeWindow, _playerCardsGroup, _enemyCardsGroup, enemy)
         };
 
         SwitchState<SetUpBattelState>();
@@ -46,6 +50,11 @@ public class BattelStationSwitcher : Battel
     {
         CurrentRound++;
         SwitchState<RoundState>();
+    }
+
+    public void SumUpButtel()
+    {
+        SwitchState<BattelResultState>();
     }
 
     private void SwitchState<T>() where T : BaseState

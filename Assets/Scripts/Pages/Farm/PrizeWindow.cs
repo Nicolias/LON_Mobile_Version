@@ -1,47 +1,41 @@
 using UnityEngine;
 
-namespace FarmPage
+public class PrizeWindow : MonoBehaviour, IIncreaserWalletValueAndCardsCount
 {
-    public class PrizeWindow : MonoBehaviour, IIncreaserWalletValueAndCardsCount
+    [SerializeField] private Transform _container;
+    [SerializeField] private PrizeCell _prizeCellTamplate;
+
+    [SerializeField] private CristalWallet _cristalWallet;
+    [SerializeField] private GoldWallet _goldWallet;
+    [SerializeField] private Inventory _inventory;
+
+    [SerializeField] private ParticleSystem _startBurstParticle;
+
+    public CardCollection CardCollection => throw new System.NotImplementedException();
+    public CristalWallet CristalWallet => _cristalWallet;
+    public GoldWallet GoldWallet => _goldWallet;
+    public Inventory Inventory => _inventory;
+
+    private void OnEnable()
     {
-        [SerializeField] private Transform _container;
-        [SerializeField] private PrizeCell _prizeCellTamplate;
-
-        [SerializeField] private CristalWallet _cristalWallet;
-        [SerializeField] private GoldWallet _goldWallet;
-        [SerializeField] private Inventory _inventory;
-
-        [SerializeField] private ParticleSystem _startBurstParticle;
-
-        public CardCollection CardCollection => throw new System.NotImplementedException();
-
-        public CristalWallet CristalWallet => _cristalWallet;
-
-        public GoldWallet GoldWallet => _goldWallet;
-
-        public Inventory Inventory => _inventory;
-
-        private void OnEnable()
+        foreach (Transform child in _container)
         {
-            foreach (Transform child in _container)
-            {
-                Destroy(child.gameObject);
-            }
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void Render(Prize[] prizes)
+    {
+        gameObject.SetActive(true);
+
+        foreach (var prize in prizes)
+        {
+            var cell = Instantiate(_prizeCellTamplate, _container);
+            cell.RenderGetingPrize(prize);
+
+            cell.Prize.TakeItemAsPrize(this, cell.AmountPrize);
         }
 
-        public void Render(Prize[] prizes)
-        {
-            gameObject.SetActive(true);
-
-            foreach (var prize in prizes)
-            {
-                var cell = Instantiate(_prizeCellTamplate, _container);
-                cell.RenderGetingPrize(prize);
-
-                cell.Prize.TakeItemAsPrize(this, cell.AmountPrize);
-            }
-
-            _startBurstParticle.Play();
-        }
+        _startBurstParticle.Play();
     }
 }

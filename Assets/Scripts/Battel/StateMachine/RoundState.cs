@@ -5,7 +5,7 @@ public class RoundState : BaseState
 {
     private int _currentRound;
 
-    public RoundState(BattelCardsGroup playerCardsGroup, BattelCardsGroup enemyCardsGroup, BattelStationSwitcher battelStationSwitcher, BattleIntro battleIntro,
+    public RoundState(BattelCardsGroup playerCardsGroup, BattelCardsGroup enemyCardsGroup, BattleStationSwitcher battelStationSwitcher, BattleIntro battleIntro,
         CoroutineServise coroutineServise) : base(battelStationSwitcher, coroutineServise, battleIntro, playerCardsGroup, enemyCardsGroup)
     {
     }
@@ -19,9 +19,9 @@ public class RoundState : BaseState
         yield return _currentRound % 2 != 0 ? Turn(PlayerCardsGroup, EnemyCardsGroup) : Turn(EnemyCardsGroup, PlayerCardsGroup);
 
         if (PlayerCardsGroup.CardsInGroup.Count != 0 && EnemyCardsGroup.CardsInGroup.Count != 0)
-        {
             BattelStationSwitcher.StartNewRound();
-        }
+        else
+            BattelStationSwitcher.SumUpButtel();
     }
 
     public override void Exit()
@@ -36,8 +36,8 @@ public class RoundState : BaseState
         yield return attacker.Turn(defender);
     }
 
-    private void SwapCardsGroupSibilingIndex(BattelCardsGroup sholdeBeUp, BattelCardsGroup sholdeBeDown) 
-    { 
+    private void SwapCardsGroupSibilingIndex(BattelCardsGroup sholdeBeUp, BattelCardsGroup sholdeBeDown)
+    {
         if (sholdeBeUp.transform.GetSiblingIndex() < sholdeBeDown.transform.GetSiblingIndex())
         {
             int temp = sholdeBeDown.transform.GetSiblingIndex();
