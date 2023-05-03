@@ -298,8 +298,8 @@ GameObject:
   - component: {fileID: 8152403171471745291}
   - component: {fileID: 5822481465516097377}
   - component: {fileID: 3427556249209164799}
-  - component: {fileID: 8813745652092081536}
   - component: {fileID: 813269555384818743}
+  - component: {fileID: 2923447649523769715}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -373,37 +373,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8813745652092081536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044112200660867745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a8a9b2373a889f40b641d70d8b43dca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _avatar: {fileID: 7221015189162394794}
-  _name: {fileID: 8868266581645757376}
-  _powerValue: {fileID: 956348944076695917}
-  _enemyCards:
-  - {fileID: 11400000, guid: 7ef27faacbedd2042bcc158242792825, type: 2}
-  - {fileID: 11400000, guid: f7eb6252245d61e47b825f0aeee1238c, type: 2}
-  - {fileID: 11400000, guid: d65e9ca9fd8eb9d4b82e60612a6036c1, type: 2}
-  _battleConfirmWindow: {fileID: 0}
-  _randomPrizes:
-  - _prizeAsScriptableObject: {fileID: 11400000, guid: c36d3007cfa328245ac449890844d7fd, type: 2}
-    _minPrizeValue: 2
-    _maxPrizeValue: 5
-  _selectionFrame: {fileID: 404097234616243827}
-  _otherEenemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 8813745652092081536}
 --- !u!114 &813269555384818743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,6 +417,32 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2923447649523769715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044112200660867745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56939feb3c5a3841a9be81c25852c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _avatar: {fileID: 7221015189162394794}
+  _name: {fileID: 8868266581645757376}
+  _powerValue: {fileID: 956348944076695917}
+  _enemyCards:
+  - {fileID: 11400000, guid: ea707c753e56d4a44be9097321ddd298, type: 2}
+  - {fileID: 11400000, guid: 8199ca5eb00e64b4e990626ce5005931, type: 2}
+  - {fileID: 11400000, guid: 58864c3fce4f6324aad8d2388ce0da0c, type: 2}
+  _battleConfirmWindow: {fileID: 0}
+  _randomPrizes:
+  - _prizeAsScriptableObject: {fileID: 11400000, guid: 5f59a1b12045a0c45aefef3876ddc2b1, type: 2}
+    _minPrizeValue: 2
+    _maxPrizeValue: 5
+  _selectionFrame: {fileID: 404097234616243827}
+  _otherEenemies: []
 --- !u!1 &2985291331276082317
 GameObject:
   m_ObjectHideFlags: 0

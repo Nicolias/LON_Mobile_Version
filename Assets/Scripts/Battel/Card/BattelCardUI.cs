@@ -102,19 +102,28 @@ namespace Cards.BattelCard
             var damageText = _damageTexts[0];
 
             if (damage <= 0)
+            {
                 damageText.DOColor(Color.gray, 0.3f);
+            }
             else
+            {
                 damageText.DOColor(new Color(1, 0, 0, 1), 0.3f);
+                _cardStatsPanel.HealthText.color = Color.red;
+            }
 
             damageText.text = '-' + damage.ToString();
-            _cardStatsPanel.HealthText.color = Color.red;
 
-            _coroutineServise.StartRoutine(ResetdamgeText());
+            _coroutineServise.StartRoutine(ResetDamgeText());
 
-            IEnumerator ResetdamgeText()
+            IEnumerator ResetDamgeText()
             {
                 yield return new WaitForSeconds(0.6f);
                 damageText.DOColor(new Color(1, 0, 0, 0), 0.3f);
+
+                if (damage <= 0)
+                    damageText.DOColor(new Color(0.5f, 0.5f, 0.5f, 0), 0.3f);
+                else
+                    damageText.DOColor(new Color(1, 0, 0, 0), 0.3f);
 
                 _cardStatsPanel.HealthText.color = _numberNormalColor;
             }
