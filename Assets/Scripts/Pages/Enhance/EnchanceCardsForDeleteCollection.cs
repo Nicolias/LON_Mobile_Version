@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using FarmPage.Enhance.Card_Statistic;
+using QuestPage.Enhance.Card_Statistic;
 using UnityEngine;
 
-namespace FarmPage.Enhance
+namespace QuestPage.Enhance
 {
-    public class EnchanceCardsForDeleteCollection : CardCollectionSort<CardCollectionCell>
+    public class EnchanceCardsForDeleteCollection : CardCollectionSort<CardViewCollection>
     {
         [SerializeField] private StatisticWindow _statisticWindow;
         [SerializeField] private EnchanceCardForDeleteCell _cardCellTemplate;
@@ -12,9 +12,9 @@ namespace FarmPage.Enhance
         [SerializeField] private PossibleLevelUpSlider possibleLevelUpSlider;
         [SerializeField] private Enchance _enchance;
 
-        private List<CardCollectionCell> _cardsForDelete = new();
+        private List<CardCell> _cardsForDelete = new();
         public PossibleLevelUpSlider PossibleLevelUpSlider => possibleLevelUpSlider;
-        public List<CardCollectionCell> CardForDelete => _cardsForDelete;
+        public List<CardCell> CardForDelete => _cardsForDelete;
 
         private void OnEnable()
         {
@@ -26,7 +26,7 @@ namespace FarmPage.Enhance
             ClearCardForDeleteCollection();
         }
 
-        public void DisplayCardsForDelete(List<CardCollectionCell> cardsForDelete)
+        public void DisplayCardsForDelete(List<CardCell> cardsForDelete)
         {
             gameObject.SetActive(true);
 
@@ -43,13 +43,13 @@ namespace FarmPage.Enhance
                     var cell = Instantiate(_cardCellTemplate, _container);
                     cell.Init(this, _enchance, cardsForDelete[i]);
                     cell.Render(cardsForDelete[i]);
-                    cell.InitStatisticCard(_statisticWindow);
-                    _cards.Add(cell);
+                    //cell.InitStatisticCard(_statisticWindow);
+                    //_cards.Add(cell);
                 }
             }
         }
 
-        public void AddToDeleteCollection(CardCollectionCell cardForDelete)
+        public void AddToDeleteCollection(CardCell cardForDelete)
         {
             if (cardForDelete == null) throw new System.ArgumentNullException();
 
@@ -58,7 +58,7 @@ namespace FarmPage.Enhance
             possibleLevelUpSlider.IncreasePossibleSliderLevelPoints(cardForDelete);
         }
 
-        public void RetrieveCard(CardCollectionCell cardForDelete)
+        public void RetrieveCard(CardCell cardForDelete)
         {
             if (_cardsForDelete.Contains(cardForDelete) == false) throw new System.ArgumentOutOfRangeException();
 

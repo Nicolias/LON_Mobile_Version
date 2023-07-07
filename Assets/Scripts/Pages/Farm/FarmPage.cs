@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 
-namespace FarmPage.Farm
+namespace QuestPage.Farm
 {
     public class FarmPage : Page
     {

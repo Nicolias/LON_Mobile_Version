@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace FarmPage.Shop
+namespace QuestPage.Shop
 {
     public class PurchaseWindow : MonoBehaviour
     {

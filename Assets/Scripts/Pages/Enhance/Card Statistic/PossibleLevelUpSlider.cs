@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace FarmPage.Enhance.Card_Statistic
+namespace QuestPage.Enhance.Card_Statistic
 {
     [RequireComponent(typeof(SliderAnimator))]
     public class PossibleLevelUpSlider : MonoBehaviour
@@ -52,7 +52,7 @@ namespace FarmPage.Enhance.Card_Statistic
             _levelPointText.text = $"{_upgradeCard.CardCell.LevelPoint}/{_upgradeCard.CardCell.MaxLevelPoint}";
         }
 
-        public void IncreasePossibleSliderLevelPoints(CardCollectionCell cardForDelete)
+        public void IncreasePossibleSliderLevelPoints(CardCell cardForDelete)
         {
             if (_upgradeCard.CardCell.Level + _howMuchIncreaseLevel > _upgradeCard.CardCell.MaxLevel || _maxLevelPointUpgradeCard == 0) throw new System.InvalidOperationException();
 
@@ -76,7 +76,7 @@ namespace FarmPage.Enhance.Card_Statistic
             _increaseLevelPointText.text = $"+{_increaseLevelPoint}";
         }
 
-        public void DecreasePossibleSliderLevelPoints(CardCollectionCell cardForDelete)
+        public void DecreasePossibleSliderLevelPoints(CardCell cardForDelete)
         {
             _levelPointUpgradeCard -= cardForDelete.GetCardDeletePoint();
             _increaseLevelPoint -= cardForDelete.GetCardDeletePoint();

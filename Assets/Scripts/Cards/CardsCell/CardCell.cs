@@ -1,129 +1,58 @@
-using Cards;
-using Data;
-using Infrastructure.Services;
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using Zenject;
 
-public abstract class CardCell : MonoBehaviour, ICard
+public class CardCell : ICard
 {
-    public event UnityAction OnLevelUp;
+    private Card _card;
+    private CardStatistic _statistic;
 
-    [SerializeField] protected Image _icon;
-    
-    [SerializeField] private CardStatsPanel _cardStatsPanel;
-    
-    protected Card _card;
-
-    private int _health;
-    private int _attack;
-    private int _def;
-    private int _level;
-    private int _evolution;
-
-    private int _levelPoint;
-    private int _maxLevelPoint;
-    
-    private int _maxLevel = 25;
-    
-    private float _nextMaxLevelPointMultiplier = 1.1f;
-    private int _baseEnhancmentLevelPoint = 1500;
-
-    private const float ValueIncreaseMultiplier = 1.35f;
-    private const float ValueLevelUpIncreaseMultiplier = 1.15f;
+    private CardEnchencer _cardEnchencer = new(0);
 
     public Sprite UIIcon
     {
         get
         {
-            if (_evolution < 2)
+            if (_statistic.Evolution < 2)
                 return _card.ImageFirstEvolution;
             else
                 return _card.ImageSecondeEvolution;
         }
     }
+    public Card Card => _card;
+    public CardStatistic Statistic => _statistic;
 
-    public int Attack => _attack;
-    public int Def => _def;
-    public int Health => _health;
+    public int LevelPoint => _cardEnchencer.LevelPoint;
+    public int MaxLevelPoint => _cardEnchencer.MaxLevelPoint;
+    public float NextMaxLevelPoitnMultiplier => _cardEnchencer.NextMaxLevelPoitnMultiplier;
+    public int Level => _statistic.Level;
+    public int MaxLevel => _statistic.MaxLevel;
 
-    public int Power => Attack + Health;
+    public bool IsInDeck { get; private set; }
 
-    public int Level => _level;
-    public int Evolution => _evolution;
-    public int MaxLevel => _maxLevel;
-    public float NextMaxLevelPoitnMultiplier => _nextMaxLevelPointMultiplier;
-
-    public int BonusAttackSkill => (int)(Attack * 0.17f);
-    public int Id { get; set; }
-
-    public int LevelPoint => _levelPoint;
-    public int MaxLevelPoint => _maxLevelPoint;
-    public int AmountIncreaseLevelPoint { get; private set; }
-
-    public virtual Card Card => _card;
-
-    public void Render(ICard card)
+    public void LevelUp(CardCell[] cardsForEnhance)
     {
-        _card = card.Card;
-
-        _icon.sprite = card.UIIcon;
-        _attack = card.Attack;
-        _def = card.Def;
-        _health = card.Health;
-        _level = card.Level;
-        _evolution = card.Evolution;
-        _maxLevelPoint = card.MaxLevelPoint;
-
-        if (_cardStatsPanel)
-        {
-            if (Card.Id != 0)
-            {
-                _cardStatsPanel.gameObject.SetActive(true);
-                _cardStatsPanel.Initialize(Attack.ToString(), Def, Health, _card.SkillIcon);
-                _icon.sprite = card.UIIcon;
-            }
-        }
+        _cardEnchencer.LevelUp(cardsForEnhance, _statistic);
     }
 
     public float GetDamageValueAfterResist(float amountDamage)
     {
-        amountDamage -= Random.Range(_def / 2, _def);
+        System.Random random = new();
 
-        if(amountDamage < 0) amountDamage = 0;
+        amountDamage -= (float)random.NextDouble() * (_statistic.Defence - _statistic.Defence / 2) + _statistic.Defence / 2;
+
+        if (amountDamage < 0) amountDamage = 0;
 
         return amountDamage;
     }
 
-    public void LevelUp(CardCell[] cardsForEnhance)
-    {        
-        void LevelUpCardValue()
-        {
-            _attack = (int)(Attack * ValueLevelUpIncreaseMultiplier);
-            _def = (int)(Def * ValueLevelUpIncreaseMultiplier);
-            _health = (int)(Health * ValueLevelUpIncreaseMultiplier);
-        }
+    public void OnDeckSet()
+    {
+        IsInDeck = true;
+    }
 
-        foreach (var card in cardsForEnhance)
-        {
-            _levelPoint += card.GetCardDeletePoint();
-            AmountIncreaseLevelPoint += card.GetCardDeletePoint();
-        }
-
-        while (LevelPoint >= MaxLevelPoint && Level < _maxLevel)
-        {
-            _levelPoint -= MaxLevelPoint;
-            _maxLevelPoint = (int)(MaxLevelPoint * _nextMaxLevelPointMultiplier);
-            _level++;
-            LevelUpCardValue();
-            OnLevelUp?.Invoke();
-
-            Debug.Log("CardCell Current Level Point: " + MaxLevelPoint);
-        }
-
-        Render(this);
+    public void OnDeckUnset()
+    {
+        IsInDeck = false;
     }
 
     public int GetCardDeletePoint()
@@ -140,23 +69,63 @@ public abstract class CardCell : MonoBehaviour, ICard
             return multiplier;
         }
 
-        return (int)(_baseEnhancmentLevelPoint * RacialMultiplier(Card.Rarity) + AmountIncreaseLevelPoint * 0.75f);
+        return (int)(_statistic.BaseEnhancmentLevelPoint * RacialMultiplier(Card.Rarity) + _cardEnchencer.AmountIncreaseLevelPoint * 0.75f);
     }
 
     public void Evolve(EvolutionCard firstCard, EvolutionCard secondCard)
     {
-        _attack = GetEvolveUpValue(firstCard.CardCell.Attack, secondCard.CardCell.Attack);
-        _def = GetEvolveUpValue(firstCard.CardCell.Def, secondCard.CardCell.Def);
-        _health = GetEvolveUpValue(firstCard.CardCell.Health, secondCard.CardCell.Health);
-        Id = firstCard.CardCell.Id;
+        _statistic.EvolveCard(firstCard, secondCard);
+
         _card = firstCard.CardCell.Card;
-        _evolution = 2;
-        _level = 1;
-        _maxLevelPoint = 1000;
-        _icon.sprite = UIIcon;
+
+        _cardEnchencer = new(1000);
+    }
+}
+
+public class CardEnchencer
+{
+    public event Action OnLevelUp;
+
+    private int _levelPoint;
+    private int _maxLevelPoint;
+
+    private const float _nextMaxLevelPointMultiplier = 1.1f;
+
+    public int LevelPoint => _levelPoint;
+    public int MaxLevelPoint => _maxLevelPoint;
+    public float NextMaxLevelPoitnMultiplier => _nextMaxLevelPointMultiplier;
+
+    public int AmountIncreaseLevelPoint { get; private set; }
+
+    public CardEnchencer(int maxLevelPoint)
+    {
+        _maxLevelPoint = maxLevelPoint;
     }
 
-    private int GetEvolveUpValue(int firstValue, int secondValue)
+    public void LevelUp(CardCell[] cardsForEnhance, CardStatistic statistic)
+    {
+        foreach (var card in cardsForEnhance)
+        {
+            _levelPoint += card.GetCardDeletePoint();
+            AmountIncreaseLevelPoint += card.GetCardDeletePoint();
+        }
+
+        while (LevelPoint >= MaxLevelPoint && statistic.Level < statistic.MaxLevel)
+        {
+            _levelPoint -= MaxLevelPoint;
+            _maxLevelPoint = (int)(MaxLevelPoint * _nextMaxLevelPointMultiplier);
+
+            statistic.LevelUpCardValue();
+            OnLevelUp?.Invoke();
+        }
+    }
+}
+
+public class CardEvolver
+{
+    public const float ValueIncreaseMultiplier = 1.35f;
+
+    public int GetEvolveUpValue(int firstValue, int secondValue)
     {
         var average = (firstValue + secondValue) / 2;
         var evolveUpValue = average * ValueIncreaseMultiplier;

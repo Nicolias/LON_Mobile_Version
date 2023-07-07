@@ -4,9 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Quest
+namespace QuestPage.Quest
 {
-
     public class Card : Unit
     {
         [SerializeField] private TMP_Text _levelText;
@@ -16,15 +15,15 @@ namespace FarmPage.Quest
 
         public override int Damage()
         {
-            return _card.Attack;
+            return _card.Statistic.Attack;
         }
 
         public void Init(CardCell card, PlayerStatisticQuest player, Image blickImage)
         {
             _card = card;
             _blick = blickImage;
-            _health = card.Health;
-            _maxHealth = card.Health;
+            _health = card.Statistic.Health;
+            _maxHealth = card.Statistic.Health;
             _view.sprite = _card.UIIcon;
             _levelText.text = _card.Level.ToString();
             _player = player;

@@ -1,9 +1,9 @@
-using FarmPage.Enhance.Card_Statistic;
+using QuestPage.Enhance.Card_Statistic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Enhance
+namespace QuestPage.Enhance
 {
     public class EnchanceUpgradeCard : MonoBehaviour
     {    
@@ -12,10 +12,10 @@ namespace FarmPage.Enhance
 
         [SerializeField] private EnhanceCardForUpgradeStatistic _cardStatistic;
 
-        private CardCollectionCell _cardCell;
-        public CardCollectionCell CardCell => _cardCell;
+        private CardCell _cardCell;
+        public CardCell CardCell => _cardCell;
 
-        public void SetCardForUpgrade(CardCollectionCell card)
+        public void SetCardForUpgrade(CardCell card)
         {
             if (card == null) throw new System.ArgumentNullException();
 

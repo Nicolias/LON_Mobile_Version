@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace FarmPage.Farm
+namespace QuestPage.Farm
 {
     public class PlaceAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {

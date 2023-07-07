@@ -12,7 +12,7 @@ public class SelectPanel : MonoBehaviour
 
     public void SetPanelAboveSelectCard(CardCell card)
     {
-        transform.position = card.transform.position;
+        //transform.position = card.transform.position;
     }
 
     public void Reset()

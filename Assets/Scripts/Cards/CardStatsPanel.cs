@@ -22,14 +22,14 @@ namespace Cards
         public int DamageAfterRessist { get; private set; }
         public TMP_Text HealthText => _healthText;
 
-        public void Initialize(string attack, int defence, int health, Sprite scillIcon)
+        public void Initialize(ICard card)
         {
-            _health = health;
-            _defence = defence;
-            _attackText.text = attack;
-            _defenseText.text = defence.ToString();
-            _healthText.text = health.ToString();
-            _skillImage.sprite = scillIcon;
+            _health = card.Statistic.Health;
+            _defence = card.Statistic.Defence;
+            _attackText.text = card.Statistic.Attack.ToString();
+            _defenseText.text = _defence.ToString();
+            _healthText.text = _health.ToString();
+            _skillImage.sprite = card.Card.SkillIcon;
         }
 
         public void DecreaseHealth(int damage)

@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using FarmPage.Enhance;
+using QuestPage.Enhance;
+using System;
 
 public class StatisticWindow : MonoBehaviour
 {
@@ -20,44 +21,39 @@ public class StatisticWindow : MonoBehaviour
         _setOrUnsetButtonImage = _setOrUnSetButton.image;
     }
 
-    public void Render(CardCellInDeck card)
+    public void Render(CardViewCollection card)
     {
-        _setOrUnSetButton.gameObject.SetActive(true);
-        _setOrUnSetButton.onClick.RemoveAllListeners();
-
-        Render((CardCell)card);
-
-        _setOrUnsetButtonImage.sprite = _disarmButtonSprite;
-        _setOrUnsetButtonText.text = "remove";
-
-        _setOrUnSetButton.onClick.AddListener(() =>
-        {
-            _deckWindow.CurrentDeck.UnsetCardInCollection(card, card.transform.GetSiblingIndex());
-            gameObject.SetActive(false);
-        });
+        RenderSetOrUnsetButton(card.CardData, "add",
+            () => _deckWindow.CurrentDeck.SetCardInDeck(card.CardData));
     }
 
-    public void Render(CardCollectionCell card)
+    public void Render(DeckSlot deckSlot)
     {
-        _setOrUnSetButton.gameObject.SetActive(true);
-        _setOrUnSetButton.onClick.RemoveAllListeners();
-
-        Render((CardCell)card);
-
-        _setOrUnsetButtonImage.sprite = _setOrUnsetButtonSprite;
-        _setOrUnsetButtonText.text = "add";
-
-        _setOrUnSetButton.onClick.AddListener(() =>
-        {
-            _deckWindow.CurrentDeck.SetCardInDeck(card);
-            gameObject.SetActive(false);
-        });
+        RenderSetOrUnsetButton(deckSlot.CardData, "remove", 
+            () => _deckWindow.CurrentDeck.UnsetCardInCollection(deckSlot));
     }
 
     public void Render(EnchanceCardCell enchanceCardCell)
     {
-        Render((CardCell)enchanceCardCell);
+        Render(enchanceCardCell.CardData);
         _setOrUnSetButton.gameObject.SetActive(false);
+    }
+
+    private void RenderSetOrUnsetButton(CardCell cardData, string textOnButton, Action actionOnButton)
+    {
+        _setOrUnSetButton.gameObject.SetActive(true);
+        _setOrUnSetButton.onClick.RemoveAllListeners();
+
+        Render(cardData);
+
+        _setOrUnsetButtonImage.sprite = _disarmButtonSprite;
+        _setOrUnsetButtonText.text = textOnButton;
+
+        _setOrUnSetButton.onClick.AddListener(() =>
+        {
+            actionOnButton?.Invoke();   
+            gameObject.SetActive(false);
+        });
     }
 
     private void Render(CardCell cardCell)
@@ -66,8 +62,8 @@ public class StatisticWindow : MonoBehaviour
 
         _icon.sprite = cardCell.UIIcon;
 
-        _atk.text =  cardCell.Attack.ToString();
-        _def.text =  cardCell.Def.ToString();
-        _health.text = cardCell.Health.ToString();
+        _atk.text =  cardCell.Statistic.Attack.ToString();
+        _def.text =  cardCell.Statistic.Defence.ToString();
+        _health.text = cardCell.Statistic.Health.ToString();
     }
 }

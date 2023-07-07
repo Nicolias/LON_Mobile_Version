@@ -2,19 +2,22 @@ using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Enhance
+namespace QuestPage.Enhance
 {
-    public class EnchanceCardCell : CardCollectionCell
+    public class EnchanceCardCell : CardCellView
     {
         [SerializeField] private Button _selectButton;
+        [SerializeField] private Button _selfButton;
 
         private EnchanceCardCollection _enchanceCardCollection;
-        private CardCollectionCell _cardInCollection;
+        private CardCell _cardInCollection;
 
-        private new void OnEnable()
+        public override CardCell CardData => throw new System.NotImplementedException();
+
+        private void OnEnable()
         {
-            if(_button != null)
-                _button.onClick.AddListener(() => _statisticWindow.Render(this));
+            if(_selfButton != null)
+                //_selfButton.onClick.AddListener(() => _statisticWindow.Render(this));
             _selectButton.onClick.AddListener(SelectCard);
         }
 
@@ -23,7 +26,7 @@ namespace FarmPage.Enhance
             _selectButton.onClick.RemoveAllListeners();
         }
 
-        public void Init(EnchanceCardCollection enchanceCardCollection, CardCollectionCell cardInCollection)
+        public void Init(EnchanceCardCollection enchanceCardCollection, CardCell cardInCollection)
         {
             _enchanceCardCollection = enchanceCardCollection;
             _cardInCollection = cardInCollection;

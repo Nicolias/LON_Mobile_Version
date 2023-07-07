@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
 
-namespace FarmPage.Enhance
+namespace QuestPage.Enhance
 {
     public class EnchanceCardCollection : MonoBehaviour
     {
@@ -20,7 +17,7 @@ namespace FarmPage.Enhance
 
         [HideInInspector] public EnchanceUpgradeCard UpgradeCard;
 
-        private List<CardCollectionCell> _listCardsInCollection = new();
+        private List<CardCell> _listCardsInCollection = new();
         
         private void OnEnable()
         {
@@ -28,7 +25,7 @@ namespace FarmPage.Enhance
             RenderCards();
         }
 
-        public void SelectCard(CardCollectionCell cardCollectionCell)
+        public void SelectCard(CardCell cardCollectionCell)
         {
             _listCardsInCollection.Remove(cardCollectionCell);
 
@@ -53,8 +50,8 @@ namespace FarmPage.Enhance
             {
                 EnchanceCardCell cell = Instantiate(_cardCellTemplate, _container);
                 cell.Init(this, _listCardsInCollection[i]);
-                cell.Render(_listCardsInCollection[i]);
-                cell.InitStatisticCard(_statisticWindow);
+                //cell.Render(_listCardsInCollection[i]);
+                //cell.InitStatisticCard(_statisticWindow);
             }
         }
     }

@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
 
-namespace FarmPage.Evolve
+namespace QuestPage.Evolve
 {
     public class EvolveCardCollection : MonoBehaviour
     {
@@ -14,8 +11,8 @@ namespace FarmPage.Evolve
         [SerializeField] private Transform _container;
         [SerializeField] private StatisticWindow _statisticWindow;
 
-        private List<CardCollectionCell> _listCardsInCollection = new();
-        private CardCollectionCell _exampleCard;
+        private List<CardCell> _listCardsInCollection = new();
+        private CardCell _exampleCard;
 
         private void OnEnable()
         {
@@ -25,7 +22,7 @@ namespace FarmPage.Evolve
             RenderCards();
         }
 
-        public void SetCardCollection(List<CardCollectionCell> cardCollectionCells)
+        public void SetCardCollection(List<CardCell> cardCollectionCells)
         {
             if (cardCollectionCells == null) throw new System.InvalidOperationException();
 
@@ -34,7 +31,7 @@ namespace FarmPage.Evolve
             RenderCards();
         }
 
-        public void SelectCard(CardCollectionCell selectCard)
+        public void SelectCard(CardCell selectCard)
         {
             if (selectCard == null) throw new System.ArgumentNullException();
 
@@ -52,12 +49,12 @@ namespace FarmPage.Evolve
 
             for (int i = 0; i < _listCardsInCollection.Count; i++)
             {
-                if (CheckCardSimilarityWhithExample(_listCardsInCollection[i].Card) && _listCardsInCollection[i].Evolution == 1)
+                if (CheckCardSimilarityWhithExample(_listCardsInCollection[i].Card) && _listCardsInCollection[i].Statistic.Evolution == 1)
                 {
                     var cell = Instantiate(_cardCellTemplate, _container);
                     cell.Init(this, _listCardsInCollection[i]);
                     cell.Render(_listCardsInCollection[i]);
-                    cell.InitStatisticCard(_statisticWindow);
+                    //cell.InitStatisticCard(_statisticWindow);
                 }
             }
         }

@@ -1,4 +1,4 @@
-using FarmPage.Quest;
+using QuestPage.Quest;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,7 +45,7 @@ public abstract class QuestCollection : MonoBehaviour
     }
     public void Render()
     {
-        _units = GetArrayType();
+        _units = GetUnitsArray();
 
         foreach (Transform unit in _unitContainer)
             Destroy(unit.gameObject);
@@ -92,6 +92,6 @@ public abstract class QuestCollection : MonoBehaviour
         return null;
     }
 
-    protected abstract Unit[] GetArrayType();
+    protected abstract Unit[] GetUnitsArray();
     protected abstract void InitUnit(Unit unit, int position);
 }

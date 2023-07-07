@@ -1,6 +1,6 @@
 using Data;
 using Infrastructure.Services;
-using FarmPage.Evolve;
+using QuestPage.Evolve;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -54,7 +54,7 @@ public class Evolution : MonoBehaviour
         _evolutionCardCollectionInEvolvePage.gameObject.SetActive(true);
     }
 
-    public void SelectCard(CardCollectionCell cardCollectionCell, List<CardCollectionCell> cardsForEvolve)
+    public void SelectCard(CardCell cardCollectionCell, List<CardCell> cardsForEvolve)
     {
         if (_firstCardForEvolution.CardCell == null)
         {
@@ -75,7 +75,7 @@ public class Evolution : MonoBehaviour
         if (_firstCardForEvolution.IsSet == false || _secondeCardForEvolution.IsSet == false)
             throw new System.InvalidOperationException();
 
-        _cardCollection.AddCardCell(GetEvolvedCard());
+        //_cardCollection.AddCardCell(GetEvolvedCard());
         _cardCollection.DeleteCards(new[] { FirstCard.CardCell, SecondeCard.CardCell });
         OnEvolvedCard?.Invoke();
         _evolveButton.interactable = false;
@@ -83,7 +83,7 @@ public class Evolution : MonoBehaviour
 
     private CardCell GetEvolvedCard()
     {
-        CardCell evolvedCard = Instantiate(FirstCard.CardCell, _cardCollectionContent);
+        CardCell evolvedCard = null;//Instantiate(FirstCard.CardCell, _cardCollectionContent);
 
         evolvedCard.Evolve(_firstCardForEvolution, _secondeCardForEvolution);
 

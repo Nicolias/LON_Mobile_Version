@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using Infrastructure.Services;
-using FarmPage.Enhance.Card_Statistic;
+using QuestPage.Enhance.Card_Statistic;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
-namespace FarmPage.Enhance
+namespace QuestPage.Enhance
 {
     public class Enchance : MonoBehaviour
     {
@@ -32,7 +30,7 @@ namespace FarmPage.Enhance
             _enhanceButton.onClick.RemoveListener(Enhance);
         }
 
-        public void SetCardForUpgrade(CardCollectionCell cardCollectionCell)
+        public void SetCardForUpgrade(CardCell cardCollectionCell)
         {
             _upgradeCard.SetCardForUpgrade(cardCollectionCell);
             gameObject.SetActive(true);
@@ -40,7 +38,7 @@ namespace FarmPage.Enhance
 
         private void Enhance()
         {
-            List<CardCollectionCell> currentEnhanceCardList = new();
+            List<CardCell> currentEnhanceCardList = new();
 
             if (_enhanceCardsForDeleteCollection.CardForDelete.Count == 0)
             {

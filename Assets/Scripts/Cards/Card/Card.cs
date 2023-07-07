@@ -1,8 +1,4 @@
-using Data;
-using Infrastructure.Services;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum RarityCard
 {
@@ -83,6 +79,8 @@ public class Card : ScriptableObject, ICard, IPrize
     public Sprite UIIcon => _imageFirstEvolution;
 
     Card ICard.Card => this;
+
+    public CardStatistic Statistic => null;
 
     public void TakeItemAsPrize(IIncreaserWalletValueAndCardsCount increaser, int amountValue)
     {

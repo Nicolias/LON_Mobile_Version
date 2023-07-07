@@ -8,7 +8,7 @@ public class CardInventory : CardCollectionSort<InventoryCardCell>
     [SerializeField] private Transform _container;
     [SerializeField] private InventoryCardCell _cardCellTemplayte;
 
-    //[SerializeField] private InventoryCardStatistic _cardStatistic;
+    [SerializeField] private InventoryCardStatistic _cardStatistic;
 
     private void OnEnable()
     {
@@ -20,10 +20,10 @@ public class CardInventory : CardCollectionSort<InventoryCardCell>
         }
 
         Render(_cardCollection.Cards);
-        Render(_attackDeck.CardCellsInDeck);
+        Render(_attackDeck.Slots);
     }
 
-    private void Render<K>(List<K> cardCells) where K : CardCell
+    private void Render<K>(List<K> cardCells) where K : ICard
     {
         foreach (var card in cardCells)
         {

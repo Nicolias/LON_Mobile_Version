@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace FarmPage.Battle
+namespace QuestPage.Battle
 {
     public class BattleConfirmWindow : MonoBehaviour
     {

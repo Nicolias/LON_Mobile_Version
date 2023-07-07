@@ -1,4 +1,4 @@
-using FarmPage.Quest;
+using QuestPage.Quest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +13,7 @@ public class QuestEnemyCollection : QuestCollection
         Render();
     }
 
-    protected override Unit[] GetArrayType()
+    protected override Unit[] GetUnitsArray()
     {
         _horizontalLayoutGroup.enabled = true;
         return new Enemy[_enemyQuestDatas.Length];

@@ -11,14 +11,14 @@ public class QuestPlayerCards : QuestCollection
 
     [SerializeField] protected Image _blickImage;
 
-    protected override Unit[] GetArrayType()
+    protected override Unit[] GetUnitsArray()
     {
-        return new FarmPage.Quest.Card[_attackDeck.CardCellsInDeck.Count];
+        return new QuestPage.Quest.Card[_attackDeck.Slots.Count];
 
     }
 
     protected override void InitUnit(Unit unit, int position)
     {
-        (unit as FarmPage.Quest.Card).Init(_attackDeck.CardCellsInDeck[position], _playerStatisticQuest, _blickImage);
+        (unit as QuestPage.Quest.Card).Init(_attackDeck.Slots[position].CardData, _playerStatisticQuest, _blickImage);
     }
 }

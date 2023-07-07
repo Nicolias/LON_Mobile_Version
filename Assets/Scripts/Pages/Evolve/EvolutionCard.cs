@@ -10,9 +10,9 @@ public class EvolutionCard : MonoBehaviour
     public bool IsSet => _isSet;
     private bool _isSet = false;
 
-    public CardCollectionCell CardCell { get; private set; }
+    public CardCell CardCell { get; private set; }
 
-    public void SetCard(CardCollectionCell selectCard)
+    public void SetCard(CardCell selectCard)
     {
         CardCell = selectCard;
         _UIIcon.sprite = CardCell.UIIcon;

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace FarmPage.Enhance.Card_Statistic
+namespace QuestPage.Enhance.Card_Statistic
 {
     public class EnhanceCardForUpgradeStatistic : EnhanceCardStatistic
     {

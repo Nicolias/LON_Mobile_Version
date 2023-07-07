@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace FarmPage.Quest
+namespace QuestPage.Quest
 {
     public class QuestConfirmWindow : MonoBehaviour
     {
@@ -31,7 +31,7 @@ namespace FarmPage.Quest
 
         private bool CheckForDeckEmpty()
         {
-            foreach (var card in _attackDeck.CardCellsInDeck)
+            foreach (var card in _attackDeck.Slots)
             {
                 if (card.IsSet)
                     return true;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace FarmPage.StartScreen
+namespace QuestPage.StartScreen
 {
     public class ChooseNickname : MonoBehaviour
     {

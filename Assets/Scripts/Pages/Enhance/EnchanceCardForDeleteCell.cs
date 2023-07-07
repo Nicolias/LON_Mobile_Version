@@ -1,21 +1,24 @@
-using FarmPage.Enhance.Card_Statistic;
+using QuestPage.Enhance.Card_Statistic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Enhance
+namespace QuestPage.Enhance
 {
     [RequireComponent(typeof(Button))]
-    public class EnchanceCardForDeleteCell : CardCollectionCell
+    public class EnchanceCardForDeleteCell : CardCellView
     {
         [SerializeField] private GameObject _selectImage;
+        [SerializeField] private Button _button;
         
         private EnchanceCardsForDeleteCollection _enchanceCardForDeleteCollection;
-        private CardCollectionCell _cardInCollection;
+        private CardCell _cardInCollection;
         private Enchance _enchance;
 
         private bool _isSelect;
 
-        protected override void OnEnable()
+        public override CardCell CardData => throw new System.NotImplementedException();
+
+        private void OnEnable()
         {
             _button.onClick.AddListener(SwitchSelectionState);
             _selectImage.SetActive(false);
@@ -26,7 +29,7 @@ namespace FarmPage.Enhance
             _button.onClick.RemoveListener(SwitchSelectionState);
         }
 
-        public void Init(EnchanceCardsForDeleteCollection enchanceCardsForDeleteCollection, Enchance enchance, CardCollectionCell cardInCollection)
+        public void Init(EnchanceCardsForDeleteCollection enchanceCardsForDeleteCollection, Enchance enchance, CardCell cardInCollection)
         {
             _enchanceCardForDeleteCollection = enchanceCardsForDeleteCollection;
             _enchance = enchance;

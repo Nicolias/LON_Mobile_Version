@@ -5,18 +5,18 @@ using UnityEngine;
 public abstract class Deck : MonoBehaviour
 {
     public event Action OnDeckActiveChanged;
-    public event Action<List<CardCellInDeck>> OnCardChanged;
+    public event Action<List<DeckSlot>> OnCardChanged;
 
-    [SerializeField] protected List<CardCellInDeck> _deckSlot;
+    [SerializeField] protected List<DeckSlot> _deckSlot;
 
     [SerializeField] private CardCollection _cardCollection;
     [SerializeField] private StatisticWindow _statisticWindow;
     
-    public List<CardCellInDeck> CardCellsInDeck
+    public List<DeckSlot> Slots
     {
         get
         {
-            List<CardCellInDeck> cardsInDeck = new();
+            List<DeckSlot> cardsInDeck = new();
 
             foreach (var deckSlots in _deckSlot)
             {
@@ -46,37 +46,28 @@ public abstract class Deck : MonoBehaviour
         OnDeckActiveChanged?.Invoke();
     }
 
-    public void SetCardInDeck(CardCollectionCell cardCell)
+    public void SetCardInDeck(CardCell cardData)
     {
-        if (cardCell == null) throw new ArgumentNullException();
+        if (cardData == null) throw new ArgumentNullException();
 
         int? cardPositionInDeck = GetNearbySlotIndex();
 
-        if (cardPositionInDeck == null)
-            return;
-
+        if (cardPositionInDeck == null) return;
         if (cardPositionInDeck == _deckSlot.Count) throw new ArgumentOutOfRangeException();
 
-        _deckSlot[(int)cardPositionInDeck].SetCard(cardCell);
-
-        _cardCollection.DeleteCards(new[] { cardCell });
-
+        _deckSlot[(int)cardPositionInDeck].SetCard(cardData);
         IsDeckEmpty = false;
     }
 
-    public void UnsetCardInCollection(CardCellInDeck cardCellInDeck, int cardPosition)
+    public void UnsetCardInCollection(DeckSlot deckSlot)
     {
-        if (_deckSlot[cardPosition].IsSet == false) return;
+        if (_deckSlot[deckSlot.transform.GetSiblingIndex()].IsSet == false) return;
 
-        _cardCollection.AddCardCell(cardCellInDeck);
-
-        cardCellInDeck.ResetCardData();
+        deckSlot.ResetCardData();
 
         foreach (var card in _deckSlot)
-        {
             if (card.IsSet == true)
                 return;
-        }
 
         IsDeckEmpty = true;
     }

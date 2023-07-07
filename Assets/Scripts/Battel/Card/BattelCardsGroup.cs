@@ -26,12 +26,12 @@ public class BattelCardsGroup : MonoBehaviour
 
     public List<BattelCard> CardsInGroup => _cardsInGroup;
 
-    public IEnumerator Initialize(List<CardCellInDeck> currentDeckCards)
+    public IEnumerator Initialize(List<DeckSlot> currentDeckCards)
     {
         List<Card> cardsInDeck = new();
 
         foreach (var cardCell in currentDeckCards)
-            cardsInDeck.Add(cardCell.Card);
+            cardsInDeck.Add(cardCell.CardData.Card);
 
         yield return Initialize(cardsInDeck);
     }
