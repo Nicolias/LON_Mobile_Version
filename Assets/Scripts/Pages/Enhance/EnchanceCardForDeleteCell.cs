@@ -16,7 +16,7 @@ namespace QuestPage.Enhance
 
         private bool _isSelect;
 
-        public override CardCell CardData => throw new System.NotImplementedException();
+        public CardCell CardData => throw new System.NotImplementedException();
 
         private void OnEnable()
         {

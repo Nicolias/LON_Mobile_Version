@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace QuestPage.Enhance
 {
-    public class EnchanceCardsForDeleteCollection : CardCollectionSort<CardViewCollection>
+    public class EnchanceCardsForDeleteCollection : CardsPage<ICardViewInEnchance>
     {
         [SerializeField] private StatisticWindow _statisticWindow;
         [SerializeField] private EnchanceCardForDeleteCell _cardCellTemplate;
@@ -15,39 +15,6 @@ namespace QuestPage.Enhance
         private List<CardCell> _cardsForDelete = new();
         public PossibleLevelUpSlider PossibleLevelUpSlider => possibleLevelUpSlider;
         public List<CardCell> CardForDelete => _cardsForDelete;
-
-        private void OnEnable()
-        {
-            _cards.Clear();
-        }
-
-        private void OnDisable()
-        {
-            ClearCardForDeleteCollection();
-        }
-
-        public void DisplayCardsForDelete(List<CardCell> cardsForDelete)
-        {
-            gameObject.SetActive(true);
-
-            ClearCardForDeleteCollection();
-
-            if (cardsForDelete == null) throw new System.ArgumentNullException();
-
-            RenderCards();
-
-            void RenderCards()
-            {
-                for (int i = 0; i < cardsForDelete.Count; i++)
-                {
-                    var cell = Instantiate(_cardCellTemplate, _container);
-                    cell.Init(this, _enchance, cardsForDelete[i]);
-                    cell.Render(cardsForDelete[i]);
-                    //cell.InitStatisticCard(_statisticWindow);
-                    //_cards.Add(cell);
-                }
-            }
-        }
 
         public void AddToDeleteCollection(CardCell cardForDelete)
         {
@@ -66,13 +33,15 @@ namespace QuestPage.Enhance
             possibleLevelUpSlider.DecreasePossibleSliderLevelPoints(cardForDelete);
         }
 
-        private void ClearCardForDeleteCollection()
+        protected override void OnCardSelect(ICardView cardView)
         {
-            foreach (Transform child in _container)
-                Destroy(child.gameObject);
+            throw new System.NotImplementedException();
+        }
 
-            _cards.Clear();
-            _cardsForDelete.Clear();
+        protected override void RenderAllCards()
+        {
+            for (int i = 0; i < Cards.Count; i++)
+                Cards[i].Render();
         }
     }
 }

@@ -15,7 +15,7 @@ public class EvolutionCard : MonoBehaviour
     public void SetCard(CardCell selectCard)
     {
         CardCell = selectCard;
-        _UIIcon.sprite = CardCell.UIIcon;
+        _UIIcon.sprite = CardCell.Statistic.UiIcon;
         _UIIcon.gameObject.SetActive(true);
         _isSet = true;
         _emptyImage.gameObject.SetActive(false);

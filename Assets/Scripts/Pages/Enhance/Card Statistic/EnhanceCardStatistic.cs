@@ -19,7 +19,7 @@ namespace QuestPage.Enhance.Card_Statistic
 
         public void Render(CardCell cardForDelete)
         {
-            _icon.sprite = cardForDelete.UIIcon;
+            _icon.sprite = cardForDelete.Statistic.UiIcon;
             _atk.text = "ATK: " + cardForDelete.Statistic.Attack;
             _def.text = "DEF: " + cardForDelete.Statistic.Defence;
             _health.text = "HP: " + cardForDelete.Statistic.Health;

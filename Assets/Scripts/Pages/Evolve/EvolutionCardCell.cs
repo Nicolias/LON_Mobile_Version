@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QuestPage.Enhance;
 
-public class EvolutionCardCell : EnchanceCardCell
+public class EvolutionCardCell : CardCellView
 {
     private  CardCell _cardCollection;
     private EvolveCardCollection _evolveCardCollection;
@@ -20,8 +20,8 @@ public class EvolutionCardCell : EnchanceCardCell
         _cardCollection = cardInCollection;
     }
 
-    protected override void SelectCard()
-    {
-        _evolveCardCollection.SelectCard(_cardCollection);
-    }
+    //protected override void OnSelectedCard()
+    //{
+    //    _evolveCardCollection.SelectCard(_cardCollection);
+    //}
 }

@@ -10,10 +10,10 @@ public class Shop : MonoBehaviour, IIncreaserWalletValueAndCardsCount
 
     [SerializeField] private Inventory _inventory;
     [SerializeField] private CristalWallet _cristalWallet;
-    [SerializeField] private CardCollection _cardCollection;
+    [SerializeField] private CardsCollection _cardCollection;
     private ConfirmWindow _confirmWindow;
 
-    public CardCollection CardCollection => _cardCollection;
+    public CardsCollection CardCollection => _cardCollection;
     public Inventory Inventory => _inventory;
     public GoldWallet GoldWallet => throw new System.NotImplementedException();
     public CristalWallet CristalWallet => _cristalWallet;

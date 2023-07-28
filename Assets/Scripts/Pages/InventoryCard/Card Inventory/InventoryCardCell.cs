@@ -34,5 +34,5 @@ public class InventoryCardCell : CardCellView
 
     //    _statisticWindow = cardStatisticWindow;
     //}
-    public override CardCell CardData => throw new System.NotImplementedException();
+    //public override CardCell CardData => throw new System.NotImplementedException();
 }

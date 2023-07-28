@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CardInventory : CardCollectionSort<InventoryCardCell>
 {
-    [SerializeField] private CardCollection _cardCollection;
+    [SerializeField] private CardsCollection _cardCollection;
     [SerializeField] private AttackDeck _attackDeck;
     [SerializeField] private Transform _container;
     [SerializeField] private InventoryCardCell _cardCellTemplayte;
@@ -19,18 +19,18 @@ public class CardInventory : CardCollectionSort<InventoryCardCell>
             Destroy(cell.gameObject);
         }
 
-        Render(_cardCollection.Cards);
-        Render(_attackDeck.Slots);
+        //Render(_cardCollection.Cards);
+        //Render(_attackDeck.Slots);
     }
 
-    private void Render<K>(List<K> cardCells) where K : ICard
+    private void Render<K>(List<K> cardCells) where K : CardCell
     {
         foreach (var card in cardCells)
         {
             if (card.Card != null && card.Card.Rarity != RarityCard.Empty)
             {
                 var cell = Instantiate(_cardCellTemplayte, _container);
-                cell.Render(card);
+                //cell.Render(card);
                 _cards.Add(cell);
             }
         }

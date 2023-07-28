@@ -5,7 +5,7 @@ namespace QuestPage.Evolve
 {
     public class EvolveCardCollection : MonoBehaviour
     {
-        [SerializeField] private CardCollection _cardCollection;
+        [SerializeField] private CardsCollection _cardCollection;
         [SerializeField] private Evolution _evolution;
         [SerializeField] private EvolutionCardCell _cardCellTemplate;
         [SerializeField] private Transform _container;
@@ -17,7 +17,7 @@ namespace QuestPage.Evolve
         private void OnEnable()
         {
             if (_evolution.FirstCard.CardCell == null)
-                SetCardCollection(_cardCollection.Cards);
+                //SetCardCollection(_cardCollection.Cards);
 
             RenderCards();
         }
@@ -53,7 +53,7 @@ namespace QuestPage.Evolve
                 {
                     var cell = Instantiate(_cardCellTemplate, _container);
                     cell.Init(this, _listCardsInCollection[i]);
-                    cell.Render(_listCardsInCollection[i]);
+                    //cell.Render(_listCardsInCollection[i]);
                     //cell.InitStatisticCard(_statisticWindow);
                 }
             }

@@ -7,8 +7,8 @@ namespace QuestPage.Enhance
 {
     public class Enchance : MonoBehaviour
     {
-        [SerializeField] private CardCollection _cardCollection;
-        [SerializeField] private EnchanceCardCollection _enhanceCardForUpgradeCollection;
+        [SerializeField] private CardsCollection _cardCollection;
+        [SerializeField] private EnchanceCardsCollection _enhanceCardForUpgradeCollection;
         [SerializeField] private EnchanceCardsForDeleteCollection _enhanceCardsForDeleteCollection;
 
         [SerializeField] private EnhanceCardForUpgradeStatistic _upgradeCardStatistic;
@@ -32,8 +32,8 @@ namespace QuestPage.Enhance
 
         public void SetCardForUpgrade(CardCell cardCollectionCell)
         {
-            _upgradeCard.SetCardForUpgrade(cardCollectionCell);
             gameObject.SetActive(true);
+            _upgradeCard.Set(cardCollectionCell);
         }
 
         private void Enhance()
@@ -52,12 +52,12 @@ namespace QuestPage.Enhance
 
             _upgradeCard.CardCell.LevelUp(_enhanceCardsForDeleteCollection.CardForDelete.ToArray());
             _upgradeCardStatistic.Render(_upgradeCard);
-            _cardCollection.DeleteCards(_enhanceCardsForDeleteCollection.CardForDelete.ToArray());
+            //_cardCollection.DeleteCards(_enhanceCardsForDeleteCollection.CardForDelete.ToArray());
 
-            currentEnhanceCardList.AddRange(_cardCollection.Cards);
+            //currentEnhanceCardList.AddRange(_cardCollection.Cards);
             currentEnhanceCardList.Remove(_upgradeCard.CardCell);
 
-            _enhanceCardsForDeleteCollection.DisplayCardsForDelete(currentEnhanceCardList);
+            _enhanceCardsForDeleteCollection.ShowAllCards();
         }
     }
 }

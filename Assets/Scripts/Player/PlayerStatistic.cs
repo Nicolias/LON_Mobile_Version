@@ -13,7 +13,7 @@ public abstract class PlayerStatistic : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        UpdateDisplay();
+        //UpdateDisplay();
         _player.OnValueChanged += UpdateDisplay;
     }
 

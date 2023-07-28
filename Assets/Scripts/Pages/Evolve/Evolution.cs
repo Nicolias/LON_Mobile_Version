@@ -11,7 +11,7 @@ public class Evolution : MonoBehaviour
 {
     public event UnityAction OnEvolvedCard;
 
-    [SerializeField] private CardCollection _cardCollection;
+    [SerializeField] private CardsCollection _cardCollection;
     [SerializeField] private EvolveCardCollection _evolveCardCollectionInCollectionPage, _evolutionCardCollectionInEvolvePage;
 
     [SerializeField] private EvolutionCard _firstCardForEvolution, _secondeCardForEvolution;
@@ -27,7 +27,7 @@ public class Evolution : MonoBehaviour
 
     private void OnEnable()
     {
-        _evolveCardCollectionInCollectionPage.SetCardCollection(_cardCollection.Cards);
+        //_evolveCardCollectionInCollectionPage.SetCardCollection(_cardCollection.Cards);
 
         _backButton.onClick.AddListener(() => 
         {
@@ -49,7 +49,7 @@ public class Evolution : MonoBehaviour
         _firstCardForEvolution.Reset();
         _secondeCardForEvolution.Reset();
 
-        _evolveCardCollectionInCollectionPage.SetCardCollection(_cardCollection.Cards);
+        //_evolveCardCollectionInCollectionPage.SetCardCollection(_cardCollection.Cards);
         _evolutionCardCollectionInEvolvePage.gameObject.SetActive(false);
         _evolutionCardCollectionInEvolvePage.gameObject.SetActive(true);
     }
@@ -76,7 +76,7 @@ public class Evolution : MonoBehaviour
             throw new System.InvalidOperationException();
 
         //_cardCollection.AddCardCell(GetEvolvedCard());
-        _cardCollection.DeleteCards(new[] { FirstCard.CardCell, SecondeCard.CardCell });
+        //_cardCollection.DeleteCards(new[] { FirstCard.CardCell, SecondeCard.CardCell });
         OnEvolvedCard?.Invoke();
         _evolveButton.interactable = false;
     }
@@ -87,7 +87,7 @@ public class Evolution : MonoBehaviour
 
         evolvedCard.Evolve(_firstCardForEvolution, _secondeCardForEvolution);
 
-        EvolvedCardSprite = evolvedCard.UIIcon;
+        EvolvedCardSprite = evolvedCard.Statistic.UiIcon;
 
         return evolvedCard;
     }    

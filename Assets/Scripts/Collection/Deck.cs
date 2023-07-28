@@ -9,7 +9,7 @@ public abstract class Deck : MonoBehaviour
 
     [SerializeField] protected List<DeckSlot> _deckSlot;
 
-    [SerializeField] private CardCollection _cardCollection;
+    [SerializeField] private CardsCollection _cardCollection;
     [SerializeField] private StatisticWindow _statisticWindow;
     
     public List<DeckSlot> Slots
@@ -46,20 +46,20 @@ public abstract class Deck : MonoBehaviour
         OnDeckActiveChanged?.Invoke();
     }
 
-    public void SetCardInDeck(CardCell cardData)
+    public void SetCard(CardCell cardData)
     {
         if (cardData == null) throw new ArgumentNullException();
 
         int? cardPositionInDeck = GetNearbySlotIndex();
 
         if (cardPositionInDeck == null) return;
-        if (cardPositionInDeck == _deckSlot.Count) throw new ArgumentOutOfRangeException();
+        if (cardPositionInDeck >= _deckSlot.Count) throw new ArgumentOutOfRangeException();
 
         _deckSlot[(int)cardPositionInDeck].SetCard(cardData);
         IsDeckEmpty = false;
     }
 
-    public void UnsetCardInCollection(DeckSlot deckSlot)
+    public void Reset(DeckSlot deckSlot)
     {
         if (_deckSlot[deckSlot.transform.GetSiblingIndex()].IsSet == false) return;
 

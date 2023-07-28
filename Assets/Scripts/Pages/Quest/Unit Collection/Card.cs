@@ -24,7 +24,7 @@ namespace QuestPage.Quest
             _blick = blickImage;
             _health = card.Statistic.Health;
             _maxHealth = card.Statistic.Health;
-            _view.sprite = _card.UIIcon;
+            _view.sprite = _card.Statistic.UiIcon;
             _levelText.text = _card.Level.ToString();
             _player = player;
             Init();

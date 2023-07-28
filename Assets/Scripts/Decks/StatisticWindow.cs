@@ -8,11 +8,13 @@ public class StatisticWindow : MonoBehaviour
 {
     [SerializeField] private Image _icon;
     [SerializeField] private TMP_Text _atk, _def, _name, _health;
-    [SerializeField] private DeckWindow _deckWindow;
     [SerializeField] private Button _setOrUnSetButton;
     [SerializeField] private TMP_Text _setOrUnsetButtonText;
     [SerializeField] private Sprite _setOrUnsetButtonSprite;
     [SerializeField] private Sprite _disarmButtonSprite;
+
+    [SerializeField] private CardsPage<ICardViewInCollection> _cardCollectionView;
+    [SerializeField] private DeckWindow _deckWindow;
 
     private Image _setOrUnsetButtonImage;
 
@@ -21,19 +23,27 @@ public class StatisticWindow : MonoBehaviour
         _setOrUnsetButtonImage = _setOrUnSetButton.image;
     }
 
-    public void Render(CardViewCollection card)
+    public void Render(ICardViewInCollection card)
     {
         RenderSetOrUnsetButton(card.CardData, "add",
-            () => _deckWindow.CurrentDeck.SetCardInDeck(card.CardData));
+            () =>
+            {
+                _deckWindow.CurrentDeck.SetCard(card.CardData);
+                //_cardCollectionView.DeleteCardsView(card.CardData);                
+            });
     }
 
     public void Render(DeckSlot deckSlot)
     {
         RenderSetOrUnsetButton(deckSlot.CardData, "remove", 
-            () => _deckWindow.CurrentDeck.UnsetCardInCollection(deckSlot));
+            () =>
+            {
+                //_cardCollectionView.CreateCardView(deckSlot.CardData);                
+                _deckWindow.CurrentDeck.Reset(deckSlot);
+            });
     }
 
-    public void Render(EnchanceCardCell enchanceCardCell)
+    public void Render(ICardViewInEnchance enchanceCardCell)
     {
         Render(enchanceCardCell.CardData);
         _setOrUnSetButton.gameObject.SetActive(false);
@@ -60,7 +70,7 @@ public class StatisticWindow : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        _icon.sprite = cardCell.UIIcon;
+        _icon.sprite = cardCell.Statistic.UiIcon;
 
         _atk.text =  cardCell.Statistic.Attack.ToString();
         _def.text =  cardCell.Statistic.Defence.ToString();

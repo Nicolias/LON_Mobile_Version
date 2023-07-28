@@ -45,7 +45,7 @@ namespace Cards.BattelCard
             _cardStatsPanel = cardStatsPanel;
 
             _cardAvatar.sprite = card.UIIcon;
-            _cardStatsPanel.Initialize(card);
+            //_cardStatsPanel.Initialize(card);
 
             transform.localPosition = transform.localPosition.ToY(100);
             _animator.SetFloat("Fall Speed", _fallSpeed);

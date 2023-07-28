@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum RarityCard
@@ -18,10 +19,9 @@ public enum RaceCard
 }
 
 [CreateAssetMenu(fileName = "Card", menuName = "ScriptableObjects/Card")]
-public class Card : ScriptableObject, ICard, IPrize
+public class Card : ScriptableObject, IPrize
 {
-    [SerializeField] private Sprite _imageFirstEvolution;
-    [SerializeField] private Sprite _imageSecondeEvolution;
+    [SerializeField] private List<Sprite> _evolutionsSprite;
 
     [SerializeField] private string _name;
     [SerializeField] private RarityCard _rarity;
@@ -67,20 +67,14 @@ public class Card : ScriptableObject, ICard, IPrize
     public ParticleSystem SkillEffect => _skillEffect;
     public Sprite SkillIcon => _skillIcon;
     public int BonusAttackSkill => (int)(_attack * 0.17f);
-    public int Id { get; set; } 
     public string AttackSkillName => _attackSillName;
     public string EffectName => _effectName;
     public float SkillChance => (float)_skillChance;
     public string Discription => _discription;
 
-    public Sprite ImageFirstEvolution => _imageFirstEvolution;
-    public Sprite ImageSecondeEvolution => _imageSecondeEvolution;
+    public Sprite UIIcon => _evolutionsSprite[0];
 
-    public Sprite UIIcon => _imageFirstEvolution;
-
-    Card ICard.Card => this;
-
-    public CardStatistic Statistic => null;
+    public List<Sprite> EvolutionsSprite => _evolutionsSprite;
 
     public void TakeItemAsPrize(IIncreaserWalletValueAndCardsCount increaser, int amountValue)
     {

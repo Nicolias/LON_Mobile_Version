@@ -12,7 +12,7 @@ public class DeckSlot : CardCellView
 
     public bool IsSet { get; private set; }
 
-    public override CardCell CardData => _cardData;
+    public CardCell CardData => _cardData;
 
     private void Awake()
     {
@@ -33,12 +33,10 @@ public class DeckSlot : CardCellView
     public void SetCard(CardCell cardData)
     {
         _cardData = cardData;
-        Render(cardData);
         IsSet = true;
         _selfButton.interactable = true;
-        ChangeRenderStatus(true);
 
-        cardData.OnDeckSet();
+        ChangeRenderStatus(true);
     }
 
     public void ResetCardData()
@@ -46,9 +44,8 @@ public class DeckSlot : CardCellView
         IsSet = false;
         _selfButton.interactable = false;
         _cardData = null;
-        ChangeRenderStatus(false);
 
-        CardData.OnDeckUnset();
+        ChangeRenderStatus(false);
     }
 
     private void ChangeRenderStatus(bool isCardSet)

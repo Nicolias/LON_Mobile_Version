@@ -1,13 +1,22 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GameEntryPoint : MonoBehaviour
 {
+    #region CardsCollectionInit
+    private const int StartingCardsCount = 5;
+
     [SerializeField] private Card[] _variationCards;
 
-    [SerializeField] private CardCollection _cardCollection;
+    private CardsCollection _cardCollection;
+    #endregion
 
-    private const int _startingCardsCount = 5;
+    [Inject]
+    public void Construct(CardsCollection cardsCollection)
+    {
+        _cardCollection = cardsCollection;
+    }
 
     private void Awake()
     {
@@ -18,7 +27,7 @@ public class GameEntryPoint : MonoBehaviour
     {
         List<Card> startingCards = new();
 
-        for (int i = 0; i < _startingCardsCount; i++)
+        for (int i = 0; i < StartingCardsCount; i++)
             startingCards.Add(_variationCards[Random.Range(0, _variationCards.Length)]);
 
         _cardCollection.AddCards(startingCards.ToArray());

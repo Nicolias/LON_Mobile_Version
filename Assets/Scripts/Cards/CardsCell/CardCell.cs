@@ -1,23 +1,13 @@
 using System;
 using UnityEngine;
 
-public class CardCell : ICard
+public class CardCell 
 {
     private Card _card;
     private CardStatistic _statistic;
 
     private CardEnchencer _cardEnchencer = new(0);
 
-    public Sprite UIIcon
-    {
-        get
-        {
-            if (_statistic.Evolution < 2)
-                return _card.ImageFirstEvolution;
-            else
-                return _card.ImageSecondeEvolution;
-        }
-    }
     public Card Card => _card;
     public CardStatistic Statistic => _statistic;
 
@@ -27,7 +17,10 @@ public class CardCell : ICard
     public int Level => _statistic.Level;
     public int MaxLevel => _statistic.MaxLevel;
 
-    public bool IsInDeck { get; private set; }
+    public CardCell(CardStatistic cardStatistic)
+    {
+        _statistic = cardStatistic;
+    }
 
     public void LevelUp(CardCell[] cardsForEnhance)
     {
@@ -43,16 +36,6 @@ public class CardCell : ICard
         if (amountDamage < 0) amountDamage = 0;
 
         return amountDamage;
-    }
-
-    public void OnDeckSet()
-    {
-        IsInDeck = true;
-    }
-
-    public void OnDeckUnset()
-    {
-        IsInDeck = false;
     }
 
     public int GetCardDeletePoint()

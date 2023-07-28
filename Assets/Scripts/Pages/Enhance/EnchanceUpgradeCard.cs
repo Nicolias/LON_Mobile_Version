@@ -7,7 +7,7 @@ namespace QuestPage.Enhance
 {
     public class EnchanceUpgradeCard : MonoBehaviour
     {    
-        [SerializeField] private EnchanceCardCollection _enhanceCardCollection;
+        [SerializeField] private EnchanceCardsCollection _enhanceCardCollection;
         [SerializeField] private Enchance _enhance;
 
         [SerializeField] private EnhanceCardForUpgradeStatistic _cardStatistic;
@@ -15,7 +15,7 @@ namespace QuestPage.Enhance
         private CardCell _cardCell;
         public CardCell CardCell => _cardCell;
 
-        public void SetCardForUpgrade(CardCell card)
+        public void Set(CardCell card)
         {
             if (card == null) throw new System.ArgumentNullException();
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CardStatistic
 {
@@ -9,6 +11,8 @@ public class CardStatistic
     private int _def;
     private int _level;
     private int _evolution;
+
+    private List<Sprite> _evolutionsSprite;
 
     public int BaseEnhancmentLevelPoint => 1500;
     private const int _maxLevel = 25;
@@ -28,6 +32,31 @@ public class CardStatistic
 
     public int BonusAttackSkill => (int)(Attack * 0.17f);
     public int Id { get; set; }
+
+    public RarityCard Rarity { get; private set; }
+
+    public Sprite UiIcon
+    {
+        get 
+        {
+            return _evolutionsSprite[_evolution - 1];
+        }
+    }
+
+    public Sprite SkillIcon { get; private set; }
+
+    public CardStatistic(Card cardData)
+    {
+        _attack = cardData.Attack;
+        _def = cardData.Def;
+        _health = cardData.Health;
+        _level = cardData.Level;
+        _evolution = cardData.Evolution;
+
+        _evolutionsSprite = cardData.EvolutionsSprite;
+        Rarity = cardData.Rarity;
+        SkillIcon = cardData.SkillIcon;
+    }
 
     public void Render(ICard card)
     {

@@ -11,7 +11,7 @@ public class PrizeWindow : MonoBehaviour, IIncreaserWalletValueAndCardsCount
 
     [SerializeField] private ParticleSystem _startBurstParticle;
 
-    public CardCollection CardCollection => throw new System.NotImplementedException();
+    public CardsCollection CardCollection => throw new System.NotImplementedException();
     public CristalWallet CristalWallet => _cristalWallet;
     public GoldWallet GoldWallet => _goldWallet;
     public Inventory Inventory => _inventory;
