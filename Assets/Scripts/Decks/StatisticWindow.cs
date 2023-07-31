@@ -13,7 +13,6 @@ public class StatisticWindow : MonoBehaviour
     [SerializeField] private Sprite _setOrUnsetButtonSprite;
     [SerializeField] private Sprite _disarmButtonSprite;
 
-    [SerializeField] private CardsPage<ICardViewInCollection> _cardCollectionView;
     [SerializeField] private DeckWindow _deckWindow;
 
     private Image _setOrUnsetButtonImage;
@@ -28,8 +27,7 @@ public class StatisticWindow : MonoBehaviour
         RenderSetOrUnsetButton(card.CardData, "add",
             () =>
             {
-                _deckWindow.CurrentDeck.SetCard(card.CardData);
-                //_cardCollectionView.DeleteCardsView(card.CardData);                
+                _deckWindow.CurrentDeck.SetCard(card);              
             });
     }
 
@@ -37,8 +35,7 @@ public class StatisticWindow : MonoBehaviour
     {
         RenderSetOrUnsetButton(deckSlot.CardData, "remove", 
             () =>
-            {
-                //_cardCollectionView.CreateCardView(deckSlot.CardData);                
+            {          
                 _deckWindow.CurrentDeck.Reset(deckSlot);
             });
     }

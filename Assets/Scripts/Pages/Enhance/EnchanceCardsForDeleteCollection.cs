@@ -1,47 +1,89 @@
+using System;
 using System.Collections.Generic;
 using QuestPage.Enhance.Card_Statistic;
 using UnityEngine;
 
 namespace QuestPage.Enhance
 {
-    public class EnchanceCardsForDeleteCollection : CardsPage<ICardViewInEnchance>
+    public class EnchanceCardsForDeleteCollection : CardsPage<ICardViewForDelete>
     {
-        [SerializeField] private StatisticWindow _statisticWindow;
-        [SerializeField] private EnchanceCardForDeleteCell _cardCellTemplate;
-        [SerializeField] private Transform _container;
-        [SerializeField] private PossibleLevelUpSlider possibleLevelUpSlider;
-        [SerializeField] private Enchance _enchance;
+        [SerializeField] private PossibleLevelUpSlider _possibleLevelUpSlider;
+        [SerializeField] private EnchanceWindow _enchance;
 
-        private List<CardCell> _cardsForDelete = new();
-        public PossibleLevelUpSlider PossibleLevelUpSlider => possibleLevelUpSlider;
-        public List<CardCell> CardForDelete => _cardsForDelete;
+        private List<ICardViewForDelete> _cardsForDelete = new();
 
-        public void AddToDeleteCollection(CardCell cardForDelete)
+        public int CardsForDeleteCount => _cardsForDelete.Count;
+
+        protected override void OnEnable()
         {
-            if (cardForDelete == null) throw new System.ArgumentNullException();
-
-            _cardsForDelete.Add(cardForDelete);
-
-            possibleLevelUpSlider.IncreasePossibleSliderLevelPoints(cardForDelete);
+            base.OnEnable();
+            _enchance.OnCardEnchanced += ClearCardsForDelete;
         }
 
-        public void RetrieveCard(CardCell cardForDelete)
+        protected override void OnDisable()
         {
-            if (_cardsForDelete.Contains(cardForDelete) == false) throw new System.ArgumentOutOfRangeException();
+            base.OnDisable();
 
-            _cardsForDelete.Remove(cardForDelete);
-            possibleLevelUpSlider.DecreasePossibleSliderLevelPoints(cardForDelete);
+            _enchance.OnCardEnchanced -= ClearCardsForDelete;
         }
 
-        protected override void OnCardSelect(ICardView cardView)
+        public CardCell[] GetCardsModel()
         {
-            throw new System.NotImplementedException();
+            CardCell[] cardsForDelete = new CardCell[_cardsForDelete.Count];
+
+            for (int i = 0; i < cardsForDelete.Length; i++)
+                cardsForDelete[i] = _cardsForDelete[i].CardData;
+
+            return cardsForDelete;
+        }
+
+        public CardCellView[] GetCardsView()
+        {
+            CardCellView[] cardsForDelete = new CardCellView[_cardsForDelete.Count];
+
+            for (int i = 0; i < cardsForDelete.Length; i++)
+                cardsForDelete[i] = _cardsForDelete[i] as CardCellView;
+
+            return cardsForDelete;
+        }
+
+        protected override void OnCardClicked(ICardView cardView)
+        {
+            ICardViewForDelete cardForDelete = cardView as ICardViewForDelete;
+
+            if (cardForDelete == null)
+                throw new InvalidCastException("Это карта не является картой для удаления.");
+
+
+            if (cardForDelete.IsSelect)
+            {
+                cardForDelete.Unselect();
+                _cardsForDelete.Remove(cardForDelete);
+                _possibleLevelUpSlider.DecreasePossibleSliderLevelPoints(cardForDelete.CardData);
+            }
+            else if (_enchance.UpgradeCard.CardData.Level + _possibleLevelUpSlider.HowMuchIncreaseLevel 
+                < _enchance.UpgradeCard.CardData.Statistic.MaxLevel)
+            {
+                cardForDelete.Select();
+                _cardsForDelete.Add(cardForDelete);
+                _possibleLevelUpSlider.IncreasePossibleSliderLevelPoints(cardForDelete.CardData);
+            }
+        }
+
+        protected override void OnCardSelected(ICardView cardView)
+        {
+            throw new NotImplementedException();
         }
 
         protected override void RenderAllCards()
         {
             for (int i = 0; i < Cards.Count; i++)
                 Cards[i].Render();
+        }
+
+        private void ClearCardsForDelete()
+        {
+            _cardsForDelete.Clear();
         }
     }
 }

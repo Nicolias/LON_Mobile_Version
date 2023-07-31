@@ -6,7 +6,7 @@ public class CardCell
     private Card _card;
     private CardStatistic _statistic;
 
-    private CardEnchencer _cardEnchencer = new(0);
+    private CardEnchencer _cardEnchencer = new(150);
 
     public Card Card => _card;
     public CardStatistic Statistic => _statistic;
@@ -52,7 +52,7 @@ public class CardCell
             return multiplier;
         }
 
-        return (int)(_statistic.BaseEnhancmentLevelPoint * RacialMultiplier(Card.Rarity) + _cardEnchencer.AmountIncreaseLevelPoint * 0.75f);
+        return (int)(_statistic.BaseEnhancmentLevelPoint * RacialMultiplier(_statistic.Rarity) + _cardEnchencer.AmountIncreaseLevelPoint * 0.75f);
     }
 
     public void Evolve(EvolutionCard firstCard, EvolutionCard secondCard)

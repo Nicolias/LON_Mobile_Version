@@ -3,7 +3,8 @@ using UnityEngine;
 
 public interface ICardView
 {
-    public event Action<ICardView> OnSelected;
+    public event Action<ICardView> OnSelfButtonClicked;
+    public event Action<ICardView> OnSelectButtonClicked;
 
     public CardCell CardData { get; }
 

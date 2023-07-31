@@ -2,9 +2,14 @@
 
 public class CardsCollectionPage : CardsPage<ICardViewInCollection>
 {
-    protected override void OnCardSelect(ICardView cardView)
+    protected override void OnCardClicked(ICardView cardView)
     {
         StatisticWindow.Render(cardView as ICardViewInCollection);
+    }
+
+    protected override void OnCardSelected(ICardView cardView)
+    {
+        throw new System.NotImplementedException();
     }
 
     protected override void RenderAllCards()

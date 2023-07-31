@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class DeckSlot : CardCellView
+public class DeckSlot : MonoBehaviour
 {
-    [SerializeField] private GameObject _emptyFone, _avatar;
+    [SerializeField] private GameObject _emptyFone;
+    [SerializeField] private Image _avatar;
     [SerializeField] private StatisticWindow _statisticWindow;
 
-    [SerializeField] private Button _selfButton;
+    [SerializeField] private CardStatsPanel _cardStatsPanel;
+
+    private Button _selfButton;
     private CardCell _cardData;
 
     public bool IsSet { get; private set; }
@@ -32,11 +35,14 @@ public class DeckSlot : CardCellView
 
     public void SetCard(CardCell cardData)
     {
-        _cardData = cardData;
         IsSet = true;
         _selfButton.interactable = true;
+        _cardData = cardData;
 
-        ChangeRenderStatus(true);
+        Render();
+
+        _avatar.sprite = CardData.Statistic.UiIcon;
+        _cardStatsPanel.Initialize(CardData);
     }
 
     public void ResetCardData()
@@ -45,13 +51,15 @@ public class DeckSlot : CardCellView
         _selfButton.interactable = false;
         _cardData = null;
 
-        ChangeRenderStatus(false);
+        Render();
     }
 
-    private void ChangeRenderStatus(bool isCardSet)
+    private void Render()
     {
-        _emptyFone.SetActive(isCardSet == false);
-        _avatar.SetActive(isCardSet);
+        _emptyFone.SetActive(IsSet == false);
+        _avatar.gameObject.SetActive(IsSet);
+
+        _cardStatsPanel.gameObject.SetActive(IsSet);
     }
 }
 

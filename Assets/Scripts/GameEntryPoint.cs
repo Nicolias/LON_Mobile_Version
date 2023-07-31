@@ -5,7 +5,7 @@ using Zenject;
 public class GameEntryPoint : MonoBehaviour
 {
     #region CardsCollectionInit
-    private const int StartingCardsCount = 5;
+    private const int StartingCardsCount = 20;
 
     [SerializeField] private Card[] _variationCards;
 
@@ -16,10 +16,6 @@ public class GameEntryPoint : MonoBehaviour
     public void Construct(CardsCollection cardsCollection)
     {
         _cardCollection = cardsCollection;
-    }
-
-    private void Awake()
-    {
         InitStartingCards();
     }
 

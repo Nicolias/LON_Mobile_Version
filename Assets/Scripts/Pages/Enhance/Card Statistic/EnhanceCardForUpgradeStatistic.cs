@@ -17,17 +17,17 @@ namespace QuestPage.Enhance.Card_Statistic
             _levelPointsSliderAnimator.UpdateSlider(0);
         }
 
-        public void Render(EnchanceUpgradeCard cardForUpgrade)
+        public void Render(ICardView cardForUpgrade)
         {
-            Render(cardForUpgrade.CardCell);
+            Render(cardForUpgrade.CardData);
 
             _possibleLevelUpSlider.SetUpgradeCard(cardForUpgrade);
 
-            _levelPointsSliderAnimator.UpdateSlider(cardForUpgrade.CardCell.LevelPoint, cardForUpgrade.CardCell.MaxLevelPoint);
+            _levelPointsSliderAnimator.UpdateSlider(cardForUpgrade.CardData.LevelPoint, cardForUpgrade.CardData.MaxLevelPoint);
 
-            if (cardForUpgrade.CardCell.Level == 25)
+            if (cardForUpgrade.CardData.Level == cardForUpgrade.CardData.MaxLevel)
             {
-                _levelPointsSliderAnimator.UpdateSlider(cardForUpgrade.CardCell.MaxLevelPoint, cardForUpgrade.CardCell.MaxLevelPoint);
+                _levelPointsSliderAnimator.UpdateSlider(cardForUpgrade.CardData.MaxLevelPoint, cardForUpgrade.CardData.MaxLevelPoint);
                 _maxLevelText.text = "MAX";
             }
         }    

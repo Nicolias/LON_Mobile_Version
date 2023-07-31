@@ -5,13 +5,10 @@ using Zenject;
 
 public abstract class CardsPage<T> : MonoBehaviour where T : class, ICardView 
 {
+    [SerializeField] protected StatisticWindow StatisticWindow;
     [SerializeField] private Transform _container;
 
     private List<T> _cards = new List<T>();
-
-    private CardsCollection _cardsCollection;
-
-    [SerializeField] protected StatisticWindow StatisticWindow;
 
     protected List<T> Cards
     {
@@ -20,39 +17,40 @@ public abstract class CardsPage<T> : MonoBehaviour where T : class, ICardView
             return new List<T>(_cards);
         }
     }
+    protected CardsCollection CardsCollection { get; private set; }
     
-    [Inject]
+   [Inject]
     public void Construct(CardsCollection cardCollection)
     {
-        _cardsCollection = cardCollection;
+        CardsCollection = cardCollection;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        _cardsCollection.CardCreated += SubscribeOnCardView;
-        _cardsCollection.CardDeleted += UnsubscribeOnCardView;
+        CardsCollection.CardCreated += SubscribeOnCardView;
+        CardsCollection.CardDeleted += UnsubscribeOnCardView;
 
         ShowAllCards();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
-        _cardsCollection.CardCreated -= SubscribeOnCardView;
-        _cardsCollection.CardDeleted -= UnsubscribeOnCardView;
+        CardsCollection.CardCreated -= SubscribeOnCardView;
+        CardsCollection.CardDeleted -= UnsubscribeOnCardView;
 
-        foreach (T card in _cards)
+        foreach (ICardView card in _cards)
             UnsubscribeOnCardView(card);
     }
 
     public void ShowAllCards()
     {
-        _cards = _cardsCollection.GetAllCardsView<T>();
+        _cards = CardsCollection.GetAllCardsView<T>();
         ChangeCardsParent();
+
+        RenderAllCards();
 
         foreach (T card in _cards)
             SubscribeOnCardView(card);
-
-        RenderAllCards();
 
         _cards = _cards
             .OrderByDescending(e => e.CardData.Statistic.Power)
@@ -60,17 +58,20 @@ public abstract class CardsPage<T> : MonoBehaviour where T : class, ICardView
             .ToList();
     }
 
-    public void SubscribeOnCardView(ICardView newCardCell)
+    public void SubscribeOnCardView(ICardView cardView)
     {
-        newCardCell.OnSelected += OnCardSelect;
+        cardView.OnSelfButtonClicked += OnCardClicked;
+        cardView.OnSelectButtonClicked += OnCardSelected;
     }
 
-    public void UnsubscribeOnCardView(ICardView newCardCell)
+    public void UnsubscribeOnCardView(ICardView cardView)
     {
-        newCardCell.OnSelected -= OnCardSelect;
+        cardView.OnSelfButtonClicked -= OnCardClicked;
+        cardView.OnSelectButtonClicked -= OnCardSelected;
     }
 
-    protected abstract void OnCardSelect(ICardView cardView);
+    protected abstract void OnCardClicked(ICardView cardView);
+    protected abstract void OnCardSelected(ICardView cardView);
 
     protected abstract void RenderAllCards();
 

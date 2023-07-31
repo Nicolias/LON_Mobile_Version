@@ -49,4 +49,14 @@ public class CardsCollection : MonoBehaviour
 
         return cards;
     }
+
+    public void GiveCard(CardCellView card)
+    {
+        _cards.Remove(card);
+    }
+
+    public void TakeCard(CardCellView card)
+    {
+        _cards.Add(card);
+    }
 }
