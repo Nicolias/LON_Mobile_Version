@@ -3,29 +3,31 @@ using UnityEngine.UI;
 
 public class EvolutionCard : MonoBehaviour
 {
-    [SerializeField] private Evolution _evolution;
-
     [SerializeField] private Image _UIIcon, _emptyImage;
 
-    public bool IsSet => _isSet;
     private bool _isSet = false;
+    public bool IsSet => _isSet;
 
-    public CardCell CardCell { get; private set; }
+    public ICardViewForEvolve CardView { get; private set; }
 
-    public void SetCard(CardCell selectCard)
+    public void Set(ICardViewForEvolve selectCard)
     {
-        CardCell = selectCard;
-        _UIIcon.sprite = CardCell.Statistic.UiIcon;
-        _UIIcon.gameObject.SetActive(true);
+        CardView = selectCard;
         _isSet = true;
-        _emptyImage.gameObject.SetActive(false);
+        _UIIcon.sprite = CardView.Statistic.UiIcon;
+
+        RenderAvatar();
     }
 
     public void Reset()
     {
-        CardCell = null;
-        _UIIcon.gameObject.SetActive(false);
-        _emptyImage.gameObject.SetActive(true);
+        CardView = null;
         _isSet = false;
+    }
+
+    public void RenderAvatar()
+    {
+        _UIIcon.gameObject.SetActive(IsSet);
+        _emptyImage.gameObject.SetActive(IsSet == false);
     }
 }

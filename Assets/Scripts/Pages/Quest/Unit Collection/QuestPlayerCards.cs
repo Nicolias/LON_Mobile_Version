@@ -19,6 +19,6 @@ public class QuestPlayerCards : QuestCollection
 
     protected override void InitUnit(Unit unit, int position)
     {
-        (unit as QuestPage.Quest.Card).Init(_attackDeck.Slots[position].CardData, _playerStatisticQuest, _blickImage);
+        (unit as QuestPage.Quest.Card).Init(_attackDeck.Slots[position].CardView.CardData, _playerStatisticQuest, _blickImage);
     }
 }

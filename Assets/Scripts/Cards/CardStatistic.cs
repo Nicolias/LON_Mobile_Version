@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CardStatistic
 {
-    public event Action OnLevelUp;
+    public event Action LevelUped;
 
     private int _health;
     private int _attack;
@@ -14,12 +14,11 @@ public class CardStatistic
 
     private List<Sprite> _evolutionsSprite;
 
-    public int BaseEnhancmentLevelPoint => 1500;
-    private const int _maxLevel = 25;
-
-    
     public const float ValueLevelUpIncreaseMultiplier = 1.15f;
+    
+    private int _maxLevel = 25;
 
+    public int BaseEnhancmentLevelPoint => 1500;
     public int Attack => _attack;
     public int Defence => _def;
     public int Health => _health;
@@ -29,6 +28,7 @@ public class CardStatistic
     public int Level => _level;
     public int Evolution => _evolution;
     public int MaxLevel => _maxLevel;
+    public int MaxEvolution => _evolutionsSprite.Count;
 
     public int BonusAttackSkill => (int)(Attack * 0.17f);
     public int Id { get; set; }
@@ -64,7 +64,7 @@ public class CardStatistic
         _def = card.Statistic.Defence;
         _health = card.Statistic.Health;
         _level = card.Statistic.Level;
-        _evolution = card.Statistic.Evolution;
+        _evolution = card.Statistic.MaxEvolution;
     }
 
     public void LevelUpCardValue()
@@ -76,15 +76,15 @@ public class CardStatistic
         _level++;
     }
 
-    public void EvolveCard(EvolutionCard firstCard, EvolutionCard secondCard)
+    public void EvolveCard(ICardViewForEvolve firstCard, ICardViewForEvolve secondCard)
     {
         CardEvolver cardEvolver = new();
 
-        _attack = cardEvolver.GetEvolveUpValue(firstCard.CardCell.Statistic.Attack, secondCard.CardCell.Statistic.Attack);
-        _def = cardEvolver.GetEvolveUpValue(firstCard.CardCell.Statistic.Defence, secondCard.CardCell.Statistic.Defence);
-        _health = cardEvolver.GetEvolveUpValue(firstCard.CardCell.Statistic.Health, secondCard.CardCell.Statistic.Health);
-        Id = firstCard.CardCell.Statistic.Id;
-        _evolution = 2;
+        _attack = cardEvolver.GetEvolveUpValue(firstCard.Statistic.Attack, secondCard.Statistic.Attack);
+        _def = cardEvolver.GetEvolveUpValue(firstCard.Statistic.Defence, secondCard.Statistic.Defence);
+        _health = cardEvolver.GetEvolveUpValue(firstCard.Statistic.Health, secondCard.Statistic.Health);
+        Id = firstCard.Statistic.Id;
+        _evolution++;
         _level = 1;
     }
 }

@@ -1,14 +1,17 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnchance, ICardViewForDelete
+public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnchance, ICardViewForDelete, ICardViewForEvolve
 {
     [SerializeField] private Image _icon;
     [SerializeField] private CardStatsPanel _cardStatsPanel;
 
     [SerializeField] private Button _selfButton;
+
     [SerializeField] private Button _selectButton;
+    [SerializeField] private TMP_Text _selectButtonText;
 
     public event Action<ICardView> OnSelfButtonClicked;
     public event Action<ICardView> OnSelectButtonClicked;
@@ -23,6 +26,8 @@ public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnc
 
     public bool IsSelect { get; private set; }
 
+    public int Id { get; private set; }
+
     private void OnEnable()
     {
         _selfButton.onClick.AddListener(() => OnSelfButtonClicked?.Invoke(this));
@@ -35,9 +40,11 @@ public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnc
         _selectButton.onClick.RemoveAllListeners();
     }
 
-    public void Init(CardCell cardData)
+    public void Init(CardCell cardData, int id)
     {
         CardData = cardData;
+
+        Id = id;
     }
 
     void ICardViewInCollection.Render()
@@ -50,7 +57,7 @@ public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnc
     void ICardViewInEnchance.Render()
     {
         Render();
-
+        _selectButtonText.text = "Enchance";
         _selectButton.gameObject.SetActive(true);
     }
 
@@ -87,6 +94,22 @@ public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnc
         _icon.color = defaultColor;
     }
 
+    void ICardViewForEvolve.Evolve(ICardViewForEvolve neededCardForEvolve)
+    {
+        CardCell evolvedCardModel = new CardCell(CardData.Statistic);
+
+        evolvedCardModel.Evolve(this, neededCardForEvolve);
+
+        CardData = evolvedCardModel;
+    }
+
+    void ICardViewForEvolve.Render()
+    {
+        Render();
+        _selectButtonText.text = "Evolve";
+        _selectButton.gameObject.SetActive(true);
+    }
+
     private void Render()
     {
         if (_cardStatsPanel == null)
@@ -97,5 +120,7 @@ public class CardCellView : MonoBehaviour, ICardViewInCollection, ICardViewInEnc
         _cardStatsPanel.gameObject.SetActive(true);
         _cardStatsPanel.Initialize(CardData);
         _icon.sprite = CardData.Statistic.UiIcon;
+
+        gameObject.SetActive(true);
     }
 }

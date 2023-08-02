@@ -13,6 +13,8 @@ public class CardsCollection : MonoBehaviour
     public event Action<CardCellView> CardCreated;
     public event Action<CardCellView> CardDeleted;
 
+    private int _id = 0;
+
     public void AddCards(Card[] newCards)
     {
         foreach (var newCard in newCards)
@@ -24,7 +26,8 @@ public class CardsCollection : MonoBehaviour
         CardStatistic cardStatistic = new(newCardPrefab);
 
         CardCellView cardCellView = Instantiate(_cardCellTemplate, _container);
-        cardCellView.Init(new CardCell(cardStatistic));
+        cardCellView.Init(new CardCell(cardStatistic), _id);
+        _id++;
 
         _cards.Add(cardCellView);
 
@@ -53,10 +56,12 @@ public class CardsCollection : MonoBehaviour
     public void GiveCard(CardCellView card)
     {
         _cards.Remove(card);
+        card.gameObject.SetActive(false);
     }
 
     public void TakeCard(CardCellView card)
     {
         _cards.Add(card);
+        card.gameObject.SetActive(true);
     }
 }

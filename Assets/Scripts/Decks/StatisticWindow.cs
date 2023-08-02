@@ -25,24 +25,30 @@ public class StatisticWindow : MonoBehaviour
     public void Render(ICardViewInCollection card)
     {
         RenderSetOrUnsetButton(card.CardData, "add",
-            () =>
-            {
-                _deckWindow.CurrentDeck.SetCard(card);              
-            });
+        () =>
+        {
+            _deckWindow.CurrentDeck.SetCard(card);              
+        });
     }
 
     public void Render(DeckSlot deckSlot)
     {
-        RenderSetOrUnsetButton(deckSlot.CardData, "remove", 
-            () =>
-            {          
-                _deckWindow.CurrentDeck.Reset(deckSlot);
-            });
+        RenderSetOrUnsetButton(deckSlot.CardView.CardData, "remove", 
+        () =>
+        {          
+            _deckWindow.CurrentDeck.Reset(deckSlot);
+        });
     }
 
     public void Render(ICardViewInEnchance enchanceCardCell)
     {
         Render(enchanceCardCell.CardData);
+        _setOrUnSetButton.gameObject.SetActive(false);
+    }
+
+    public void Render(ICardViewForEvolve evolveCardCell)
+    {
+        Render(evolveCardCell.CardData);
         _setOrUnSetButton.gameObject.SetActive(false);
     }
 

@@ -11,11 +11,11 @@ public class DeckSlot : MonoBehaviour
     [SerializeField] private CardStatsPanel _cardStatsPanel;
 
     private Button _selfButton;
-    private CardCell _cardData;
+    private ICardView _card;
 
     public bool IsSet { get; private set; }
 
-    public CardCell CardData => _cardData;
+    public ICardView CardView => _card;
 
     private void Awake()
     {
@@ -33,23 +33,23 @@ public class DeckSlot : MonoBehaviour
         _selfButton.onClick.RemoveAllListeners();
     }
 
-    public void SetCard(CardCell cardData)
+    public void SetCard(ICardView card)
     {
         IsSet = true;
         _selfButton.interactable = true;
-        _cardData = cardData;
+        _card = card;
 
         Render();
 
-        _avatar.sprite = CardData.Statistic.UiIcon;
-        _cardStatsPanel.Initialize(CardData);
+        _avatar.sprite = CardView.Statistic.UiIcon;
+        _cardStatsPanel.Initialize(CardView.CardData);
     }
 
     public void ResetCardData()
     {
         IsSet = false;
         _selfButton.interactable = false;
-        _cardData = null;
+        _card = null;
 
         Render();
     }

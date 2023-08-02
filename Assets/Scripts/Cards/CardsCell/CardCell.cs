@@ -55,11 +55,14 @@ public class CardCell
         return (int)(_statistic.BaseEnhancmentLevelPoint * RacialMultiplier(_statistic.Rarity) + _cardEnchencer.AmountIncreaseLevelPoint * 0.75f);
     }
 
-    public void Evolve(EvolutionCard firstCard, EvolutionCard secondCard)
+    public void Evolve(ICardViewForEvolve firstCard, ICardViewForEvolve secondCard)
     {
+        if (_statistic.Evolution + 1 > _statistic.MaxEvolution)
+            throw new ArgumentOutOfRangeException("Такого уровня эвалюции нет.");
+
         _statistic.EvolveCard(firstCard, secondCard);
 
-        _card = firstCard.CardCell.Card;
+        _card = firstCard.Card;
 
         _cardEnchencer = new(1000);
     }

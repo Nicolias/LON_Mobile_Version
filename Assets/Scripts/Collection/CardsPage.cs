@@ -27,19 +27,19 @@ public abstract class CardsPage<T> : MonoBehaviour where T : class, ICardView
 
     protected virtual void OnEnable()
     {
-        CardsCollection.CardCreated += SubscribeOnCardView;
-        CardsCollection.CardDeleted += UnsubscribeOnCardView;
+        CardsCollection.CardCreated += SubscribeOn;
+        CardsCollection.CardDeleted += UnsubscribeFrom;
 
         ShowAllCards();
     }
 
     protected virtual void OnDisable()
     {
-        CardsCollection.CardCreated -= SubscribeOnCardView;
-        CardsCollection.CardDeleted -= UnsubscribeOnCardView;
+        CardsCollection.CardCreated -= SubscribeOn;
+        CardsCollection.CardDeleted -= UnsubscribeFrom;
 
         foreach (ICardView card in _cards)
-            UnsubscribeOnCardView(card);
+            UnsubscribeFrom(card);
     }
 
     public void ShowAllCards()
@@ -47,24 +47,29 @@ public abstract class CardsPage<T> : MonoBehaviour where T : class, ICardView
         _cards = CardsCollection.GetAllCardsView<T>();
         ChangeCardsParent();
 
+        foreach (T card in _cards)
+            card.Transform.gameObject.SetActive(false);
         RenderAllCards();
 
         foreach (T card in _cards)
-            SubscribeOnCardView(card);
+            SubscribeOn(card);
 
         _cards = _cards
             .OrderByDescending(e => e.CardData.Statistic.Power)
             .ThenByDescending(e => e.CardData.Statistic.Rarity)
             .ToList();
+
+        for (int i = 0; i < _cards.Count; i++)
+            _cards[i].Transform.SetSiblingIndex(i);
     }
 
-    public void SubscribeOnCardView(ICardView cardView)
+    protected void SubscribeOn(ICardView cardView)
     {
         cardView.OnSelfButtonClicked += OnCardClicked;
         cardView.OnSelectButtonClicked += OnCardSelected;
     }
 
-    public void UnsubscribeOnCardView(ICardView cardView)
+    protected void UnsubscribeFrom(ICardView cardView)
     {
         cardView.OnSelfButtonClicked -= OnCardClicked;
         cardView.OnSelectButtonClicked -= OnCardSelected;

@@ -21,7 +21,7 @@ public abstract class Deck : MonoBehaviour
 
             foreach (var deckSlots in _deckSlots)
             {
-                if (deckSlots.CardData != null)
+                if (deckSlots.CardView != null)
                     cardsInDeck.Add(deckSlots);
             }
 
@@ -60,11 +60,9 @@ public abstract class Deck : MonoBehaviour
         int? cardPositionInDeck = GetNearbySlotIndex();
 
         if (cardPositionInDeck == null) return;
-        if (cardPositionInDeck >= _deckSlots.Count) throw new ArgumentOutOfRangeException();
 
-        _cardsViewInDeck.Add(card as CardCellView);
-        card.Transform.gameObject.SetActive(false);
-        _deckSlots[(int)cardPositionInDeck].SetCard(card.CardData);
+        _cardsCollection.GiveCard(card as CardCellView);
+        _deckSlots[(int)cardPositionInDeck].SetCard(card);
 
         IsDeckEmpty = false;
     }
@@ -73,16 +71,7 @@ public abstract class Deck : MonoBehaviour
     {
         if (_deckSlots[deckSlot.transform.GetSiblingIndex()].IsSet == false) return;
 
-        foreach (CardCellView cardView in _cardsViewInDeck)
-        {
-            if (cardView.CardData == deckSlot.CardData)
-            {
-                _cardsViewInDeck.Remove(cardView);
-                cardView.gameObject.SetActive(true);
-                break;
-            }
-        }
-
+        _cardsCollection.TakeCard(deckSlot.CardView as CardCellView);
         deckSlot.ResetCardData();
 
         foreach (var card in _deckSlots)
@@ -95,10 +84,8 @@ public abstract class Deck : MonoBehaviour
     private int? GetNearbySlotIndex()
     {
         foreach (var deckSlot in _deckSlots)
-        {
             if (deckSlot.IsSet == false)
                 return deckSlot.transform.GetSiblingIndex();
-        }
 
         return null;
     }

@@ -54,7 +54,6 @@ namespace QuestPage.Enhance
             if (cardForDelete == null)
                 throw new InvalidCastException("Это карта не является картой для удаления.");
 
-
             if (cardForDelete.IsSelect)
             {
                 cardForDelete.Unselect();

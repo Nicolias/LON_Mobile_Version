@@ -31,7 +31,7 @@ public class BattelCardsGroup : MonoBehaviour
         List<Card> cardsInDeck = new();
 
         foreach (var cardCell in currentDeckCards)
-            cardsInDeck.Add(cardCell.CardData.Card);
+            cardsInDeck.Add(cardCell.CardView.Card);
 
         yield return Initialize(cardsInDeck);
     }
