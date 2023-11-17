@@ -3,7 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace FarmPage.StartScreen
+namespace QuestPage.StartScreen
 {
     public class StartScreenTextAnimator : MonoBehaviour
     {

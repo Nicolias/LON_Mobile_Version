@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e605e93726703bd4b8b31a213035e474, type: 3}
   m_Name: Owl Card
   m_EditorClassIdentifier: 
-  _imageFirstEvolution: {fileID: 21300000, guid: a036d460e5748c44b85f162e9518a995, type: 3}
-  _imageSecondeEvolution: {fileID: 21300000, guid: 8ab8cb5318f69794fb45d97fa3fd74c5, type: 3}
+  _evolutionsSprite:
+  - {fileID: 21300000, guid: a036d460e5748c44b85f162e9518a995, type: 3}
+  - {fileID: 21300000, guid: 8ab8cb5318f69794fb45d97fa3fd74c5, type: 3}
   _name: none
   _rarity: 4
   _race: 2

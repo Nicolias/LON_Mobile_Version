@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _nickName = _playerName.Name;
-        OnValueChanged?.Invoke();
+        //OnValueChanged?.Invoke();
     }
 
     public void DecreaseEnergy(int energy)

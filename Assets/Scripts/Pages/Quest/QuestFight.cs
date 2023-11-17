@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
-namespace FarmPage.Quest
+namespace QuestPage.Quest
 {
     public class QuestFight : MonoBehaviour
     {

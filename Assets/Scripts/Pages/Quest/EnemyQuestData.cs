@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FarmPage.Quest
+namespace QuestPage.Quest
 {
     [Serializable]
     public struct EnemyQuestData

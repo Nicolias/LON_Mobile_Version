@@ -1,5 +1,5 @@
 using Infrastructure.Services;
-using FarmPage.Shop;
+using QuestPage.Shop;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

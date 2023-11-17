@@ -53,7 +53,7 @@ public class DailyRewards : MonoBehaviour, IIncreaserWalletValueAndCardsCount
         }
     }
 
-    public CardCollection CardCollection => throw new NotImplementedException();
+    public CardsCollection CardCollection => throw new NotImplementedException();
 
     public CristalWallet CristalWallet => _cristalWallet;
 

@@ -1,21 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CardCollectionSort<T> : MonoBehaviour where T : CardCell
+public class CardCollectionSort<T> : MonoBehaviour where T : CardCellView
 {
     protected List<T> _cards = new();
 
     public void AttackSort()
     {
-        _cards = _cards.OrderByDescending(e => e.Attack).ToList();
+        _cards = _cards.OrderByDescending(e => e.Statistic.Attack).ToList();
         RenderCardsSiblingIndex();
     }
 
     public void DefSort()
     {
-        _cards = _cards.OrderByDescending(e => e.Def).ToList();
+        _cards = _cards.OrderByDescending(e => e.Statistic.Defence).ToList();
         RenderCardsSiblingIndex();
     }
 
@@ -38,17 +37,17 @@ public class CardCollectionSort<T> : MonoBehaviour where T : CardCell
     {
         foreach (var cardCell in _cards)
         {
-            cardCell.gameObject.SetActive(false);
-            if (cardCell.Card.Race == race)
-                cardCell.gameObject.SetActive(true);
+            //cardCell.gameObject.SetActive(false);
+            //if (cardCell.Card.Race == race)
+            //    cardCell.gameObject.SetActive(true);
         }
     }
 
-    public void AllCard()
-    {
-        foreach (var cardCell in _cards)
-            cardCell.gameObject.SetActive(true);
-    }
+    //public void AllCard()
+    //{
+    //    foreach (var cardCell in _cards)
+    //        cardCell.gameObject.SetActive(true);
+    //}
 
     public void StandartRarity()
     {
@@ -79,15 +78,15 @@ public class CardCollectionSort<T> : MonoBehaviour where T : CardCell
     {
         foreach (var cardCell in _cards)
         {
-            cardCell.gameObject.SetActive(false);
-            if (cardCell.Card.Rarity == rarity)
-                cardCell.gameObject.SetActive(true);
+            //cardCell.gameObject.SetActive(false);
+            //if (cardCell.Card.Rarity == rarity)
+            //    cardCell.gameObject.SetActive(true);
         }
     }
 
     protected void RenderCardsSiblingIndex()
     {
-        for (int i = 0; i < _cards.Count; i++)
-            _cards[i].transform.SetSiblingIndex(i);
+        //for (int i = 0; i < _cards.Count; i++)
+        //    _cards[i].transform.SetSiblingIndex(i);
     }
 }

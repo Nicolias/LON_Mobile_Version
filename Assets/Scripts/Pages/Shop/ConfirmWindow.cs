@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Shop
+namespace QuestPage.Shop
 {
     public class ConfirmWindow : MonoBehaviour 
     {

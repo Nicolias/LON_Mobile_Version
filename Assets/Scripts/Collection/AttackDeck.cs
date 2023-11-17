@@ -7,8 +7,8 @@ public class AttackDeck : Deck
         {
             int amountPower = 0;
 
-            foreach (var card in _deckSlot)
-                amountPower += card.Power;
+            foreach (DeckSlot deckSlot in _deckSlots)
+                amountPower += deckSlot.CardView.Statistic.Power;
 
             return amountPower;
         }

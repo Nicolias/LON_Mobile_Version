@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class StartGame : MonoBehaviour
 {
     [SerializeField] private Card[] _cards;
-    [SerializeField] private CardCollection _cardCollection;
+    [SerializeField] private CardsCollection _cardCollection;
 
     private void Awake()
     {

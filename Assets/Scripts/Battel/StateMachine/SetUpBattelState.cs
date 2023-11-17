@@ -31,14 +31,14 @@ public class SetUpBattelState : BaseState
 
     private IEnumerator InitializeCard()
     {
-        if (_playerAttackDeck.CardCellsInDeck.Count > _enemy.Cards.Count)
+        if (_playerAttackDeck.Slots.Count > _enemy.Cards.Count)
         {
             CoroutineSevise.StartRoutine(EnemyCardsGroup.Initialize(_enemy.Cards));
-            yield return PlayerCardsGroup.Initialize(_playerAttackDeck.CardCellsInDeck);
+            yield return PlayerCardsGroup.Initialize(_playerAttackDeck.Slots);
         }
         else
         {
-            CoroutineSevise.StartRoutine(PlayerCardsGroup.Initialize(_playerAttackDeck.CardCellsInDeck));
+            CoroutineSevise.StartRoutine(PlayerCardsGroup.Initialize(_playerAttackDeck.Slots));
             yield return EnemyCardsGroup.Initialize(_enemy.Cards);
         }
     }

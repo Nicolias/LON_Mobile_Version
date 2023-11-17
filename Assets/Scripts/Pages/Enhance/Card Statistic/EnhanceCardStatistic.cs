@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Enhance.Card_Statistic
+namespace QuestPage.Enhance.Card_Statistic
 {
     public abstract class EnhanceCardStatistic : MonoBehaviour
     {
@@ -19,10 +19,10 @@ namespace FarmPage.Enhance.Card_Statistic
 
         public void Render(CardCell cardForDelete)
         {
-            _icon.sprite = cardForDelete.UIIcon;
-            _atk.text = "ATK: " + cardForDelete.Attack;
-            _def.text = "DEF: " + cardForDelete.Def;
-            _health.text = "HP: " + cardForDelete.Health;
+            _icon.sprite = cardForDelete.Statistic.UiIcon;
+            _atk.text = "ATK: " + cardForDelete.Statistic.Attack;
+            _def.text = "DEF: " + cardForDelete.Statistic.Defence;
+            _health.text = "HP: " + cardForDelete.Statistic.Health;
             _level.text = cardForDelete.Level.ToString();
         }
     }

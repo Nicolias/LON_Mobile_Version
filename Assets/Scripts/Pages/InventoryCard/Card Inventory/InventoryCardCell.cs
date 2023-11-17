@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class InventoryCardCell : CardCell
+public class InventoryCardCell : CardCellView
 {
     //private InventoryCardStatistic _statisticWindow;
 
@@ -34,4 +34,5 @@ public class InventoryCardCell : CardCell
 
     //    _statisticWindow = cardStatisticWindow;
     //}
+    //public override CardCell CardData => throw new System.NotImplementedException();
 }

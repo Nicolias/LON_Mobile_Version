@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FarmPage.Quest
+namespace QuestPage.Quest
 {
     [RequireComponent(typeof(Button))]
     public class Chapter : MonoBehaviour

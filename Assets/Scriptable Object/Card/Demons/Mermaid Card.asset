@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e605e93726703bd4b8b31a213035e474, type: 3}
   m_Name: Mermaid Card
   m_EditorClassIdentifier: 
-  _imageFirstEvolution: {fileID: 21300000, guid: d5c9d51ed85b6104f86280dd93c9d7b2, type: 3}
-  _imageSecondeEvolution: {fileID: 21300000, guid: 9c03c5227f967db4cbe3b5cc2caa2633, type: 3}
+  _evolutionsSprite:
+  - {fileID: 21300000, guid: d5c9d51ed85b6104f86280dd93c9d7b2, type: 3}
+  - {fileID: 21300000, guid: 9c03c5227f967db4cbe3b5cc2caa2633, type: 3}
   _name: Mermaid
   _rarity: 2
   _race: 2

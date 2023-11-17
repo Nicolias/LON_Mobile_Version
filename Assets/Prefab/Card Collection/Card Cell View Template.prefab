@@ -1295,10 +1295,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274497782439557534}
-  - component: {fileID: 8400113743697076331}
   - component: {fileID: 1397844126316866142}
+  - component: {fileID: 2384117600168448809}
   m_Layer: 5
-  m_Name: Card For Enhance
+  m_Name: Card Cell View Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1327,22 +1327,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8400113743697076331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7117434424180157950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ef652e21352754aa145bee58cd170d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _icon: {fileID: 9219620212283341441}
-  _cardStatsPanel: {fileID: 5215673923844162554}
-  _button: {fileID: 1397844126316866142}
-  _selectButton: {fileID: 6551074844555268676}
 --- !u!114 &1397844126316866142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1371,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2384117600168448809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7117434424180157950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d0d6ddd75baef47936c517645e8750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 9219620212283341441}
+  _cardStatsPanel: {fileID: 5215673923844162554}
+  _selfButton: {fileID: 1397844126316866142}
+  _selectButton: {fileID: 6551074844555268676}
+  _selectButtonText: {fileID: 6019101774569686650}
 --- !u!1 &7349386238486604439
 GameObject:
   m_ObjectHideFlags: 0
